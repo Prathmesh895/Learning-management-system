@@ -4,17 +4,17 @@ import {authOptions } from '../api/auth/[...nextauth]/route'
 import Admin from '@/components/admin';
 
 export default  async function Page() {
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
    
-  if (!session) {
-    redirect('/Login');
-    return null; // Ensure that the function returns null after redirection
-  }
+  // if (!session) {
+  //   redirect('/Login');
+  //   return null; // Ensure that the function returns null after redirection
+  // }
 
-  if (session && session.user.role !== 'admin') {
-    redirect('/denied');
-    return null; // Ensure that the function returns null after redirection
-  }
+  // if (session && session.user.role !== 'admin') {
+  //   redirect('/denied');
+  //   return null; // Ensure that the function returns null after redirection
+  // }
   return (
     <>
     <Admin/>
