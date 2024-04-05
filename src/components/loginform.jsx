@@ -8,6 +8,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation"; // corrected import
 import { getSession } from "next-auth/react";
 import bcrypt from 'bcryptjs'
+import { toast } from "react-toastify";
 
 function LoginForm() {
     const router = useRouter();
@@ -16,12 +17,20 @@ function LoginForm() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const togglePasswordVisibility = () => {
+    const togglePasswordVisibility = (e) => {
+        e.preventDefault();
         setShowPassword(!showPassword);
     };
    
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if(!email){
+            toast.error("Please enter the email")
+            return;
+        }if(!password){
+            toast.error("Please enter the password")
+            return;
+        }
         const hashedPassword = await bcrypt.hash(password, 10);
         try {
             const res = await signIn("credentials", {
@@ -31,7 +40,8 @@ function LoginForm() {
             });
             
             if (res.error) {
-                setError("Invalid Credentials");
+                // setError("Invalid Credentials");
+                toast.error("Invalid Credentials");
                 return;
             }
             
@@ -43,26 +53,30 @@ function LoginForm() {
                 const isAdmin = session.user.role;
                 if (isAdmin === 'admin') {
                     router.replace("/admin");
+                    toast.success("Welcome Admin")
                 } else {
                     router.replace("/student");
+                    toast.success("Login Sucessfully");
+                    toast.success('Welcome')
                 }
             } else {
                 setError("Session not found");
             }
         } catch (error) {
             console.log(error);
+            toast.error(error)
         }
     }
 
     return (
-        <main className='md:m-28'>
-            <section className='md:flex md:m-0 m-8'>
+        <main className='md:m-28 '>
+            <section className='md:flex md:m-0 lg:m-8'>
                 <div className='md:w-1/2 h-[100%] w-[90%] md:flex md:justify-center flex justify-center ml-4'>
                     <Image src={LogImg} alt="" className="md:w-2/3" />
                 </div>
-                {/* code for right side login form */}
-                <div className='md:w-1/2 md:mt-0 mt-10'>
-                    <div className="md:w-[70%]">
+        {/* code for right side login form */}
+                <div className='md:w-1/2 md:mt-0 mt-10 bg-white lg:flex lg:justify-center lg:w-[40%]'>
+                    <div className="m-5">
                         <h1 className="text-3xl font-bold text-gray-500">Log in <span className="text-indigo-600">!</span></h1><br />
                         <p>Explore, learn, and grow with us. enjoy a seamless and enriching educational journey. lets begin!</p><br /><br />
                         <form onSubmit={handleSubmit} className="flex flex-col justify-center">

@@ -20,6 +20,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please provide a password"],
     },
+    role: {
+        type: String,
+        enum: ['instr','Subadmin','student',"Instructor"],
+        default: 'student'
+      }
 },
 { timestamps: true } 
 )
@@ -27,3 +32,4 @@ const userSchema = new mongoose.Schema({
 const User = models.User || mongoose.model("User", userSchema);
 
 export default User;
+

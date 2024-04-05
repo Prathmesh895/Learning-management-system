@@ -3,6 +3,8 @@ import "./globals.css";
 import { AuthProvider } from "./Providers";
 import Footer from "@/components/footer";
 import Navbar1 from "@/components/Navbar1";
+import { ToastContainer } from "../app/next-tostyft";
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,6 +14,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+ 
   return (
     <html lang="en">
       <body className={inter.className} style={{backgroundColor:'rgb(241, 245, 249)'}}>
@@ -19,6 +22,7 @@ export default function RootLayout({ children }) {
             <Navbar1/>
             {children}
             <Footer/>
+            <ToastContainer />
       </AuthProvider>
         
       </body>

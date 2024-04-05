@@ -7,6 +7,7 @@ import { signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Logo from '/public/cropped-New-logo-File.png';
+import { toast } from 'react-toastify';
 
  function Navbar1() {
     const [isopen, setIsOpen] = useState(false);
@@ -19,6 +20,7 @@ import Logo from '/public/cropped-New-logo-File.png';
     const handleSignOut = async () => {
         await signOut();
         router.push('/');
+        toast.success("Logout Sucessesfully")
     };
 
     const navElements = [

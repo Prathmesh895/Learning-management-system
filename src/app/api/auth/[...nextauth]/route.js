@@ -21,7 +21,7 @@ export const authOptions = {
 
                     // Assigning userRole based on email
                     let userRole = "student"; // Default role
-                    if (email === "user2@gmail.com") {
+                    if (email === "user1@gmail.com") {
                         userRole = "admin";
                     }
 
