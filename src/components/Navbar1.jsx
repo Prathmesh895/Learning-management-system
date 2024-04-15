@@ -24,7 +24,7 @@ import { toast } from 'react-toastify';
     };
 
     const navElements = [
-        { title: 'Courses', href: '/Courses' },
+        { title: 'Courses', href: '/courses' },
         { title: 'Courses bundle', href: '/Coursesbundle' },
         { title: 'Bootcamps', href: '/Bootcamps' },
         { title: 'Team training', href: '/Team training' },

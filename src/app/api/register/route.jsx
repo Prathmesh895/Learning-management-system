@@ -63,46 +63,15 @@ export async function DELETE(req) {
 }
 
 // Update the user in the database
-// export async function PUT(req) {
-//   try {
-//     const { id, fname, lname, email, password, role } = await req.json();
-//     await connectMongoDB();
-//     const updatedUser = await User.findByIdAndUpdate(id, { fname, lname, email, password, role }, { new: true });
-
-//     if (!updatedUser) {
-//       return NextResponse.json({ message: 'User not found' }, { status: 404 });
-//     }
-
-//     return NextResponse.json({ updatedUser });
-//   } catch (error) {
-//     console.log("Cannot Update the User:", error);
-//     return NextResponse.json({ message: "An error occurred while Updating User Account." }, { status: 500 });
-//   }
-// }
-
 export async function PUT(req) {
   try {
-    const { id, fname, lname, email, password, role } = await req.json();
+    const { id, fname, lname} = await req.json();
     await connectMongoDB();
-    
-    // Fetch the existing user data from the database
-    const existingUser = await User.findById(id);
-    if (!existingUser) {
+    const updatedUser = await User.findByIdAndUpdate(id, { fname, lname }, { new: true });
+
+    if (!updatedUser) {
       return NextResponse.json({ message: 'User not found' }, { status: 404 });
     }
-
-    // Update only the fields that are provided in the request body
-    if (fname) existingUser.fname = fname;
-    if (lname) existingUser.lname = lname;
-    if (email) existingUser.email = email;
-    if (password) {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      existingUser.password = hashedPassword;
-    }
-    if (role) existingUser.role = role;
-
-    // Save the updated user data
-    const updatedUser = await existingUser.save();
 
     return NextResponse.json({ updatedUser });
   } catch (error) {
@@ -110,4 +79,30 @@ export async function PUT(req) {
     return NextResponse.json({ message: "An error occurred while Updating User Account." }, { status: 500 });
   }
 }
+
+// export async function PUT(req) {
+//   try {
+//     const { id, fname, lname } = await req.json();
+//     await connectMongoDB();
+    
+//     // Fetch the existing user data from the database
+//     const existingUser = await User.findById(id);
+//     if (!existingUser) {
+//       return NextResponse.json({ message: 'User not found' }, { status: 404 });
+//     }
+
+//     // Update only the fields that are provided in the request body
+//     if (fname) existingUser.fname = fname;
+//     if (lname) existingUser.lname = lname;
+   
+
+//     // Save the updated user data
+//     const updatedUser = await existingUser.save();
+
+//     return NextResponse.json({ updatedUser });
+//   } catch (error) {
+//     console.log("Cannot Update the User:", error);
+//     return NextResponse.json({ message: "An error occurred while Updating User Account." }, { status: 500 });
+//   }
+// }
 
