@@ -133,15 +133,7 @@ function Admin() {
                     </React.Fragment>
                 ))}
             </div>
-            {/* <div className='lg:hidden block'>
-                <RiMenu2Fill onClick={handleOpen} className='w-7 h-7 text-gray-500 sm:text-white' />
-                <div className={isopen ? "fixed left-0 top-0 w-[90%] h-screen z-50 bg-white ease-in duration-500" : "fixed left-[-100%] top-0 p-6 bg-slate-500"}>
-                    <div className='p-3 justify-end flex ' onClick={handleOpen}>
-                        <AiOutlineClose className='border text-black p-2 rounded-full' size={40} />
-                    </div>
-                    <Sidebar />
-                </div>
-            </div> */}
+           
         </>
     );
 }

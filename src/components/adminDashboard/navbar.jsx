@@ -27,9 +27,7 @@ function sidebar() {
     const [isopen, setIsopen] = useState('');
     const dropdownRef = useRef(null);
     const dropdownRef1 = useRef(null);
-    // const handleOpen = () => {
-    //     setIsopen(!isopen);
-    // }
+    
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (
