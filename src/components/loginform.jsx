@@ -55,7 +55,7 @@ function LoginForm() {
                     router.replace("/admin");
                     toast.success("Welcome Admin")
                 } else {
-                    router.replace("/student");
+                    router.replace("/");
                     toast.success("Login Sucessfully");
                     toast.success('Welcome')
                 }

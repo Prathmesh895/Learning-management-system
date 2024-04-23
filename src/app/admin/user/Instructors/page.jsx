@@ -1,9 +1,9 @@
 "use client"
 import React, { useState, useEffect, useRef } from 'react'
 import { RiEditBoxLine } from "react-icons/ri";
-import Delete from "@/app/delete/[id]/page";
-import Update from '@/app/update/[id]/page'
-import Add from '@/app/add/page'
+import Delete from "@/app/UserCRUD/DeleteUser/[id]/page";
+import Update from '@/app/UserCRUD/UpdateUser/[id]/page'
+import Add from '@/app/UserCRUD/adduser/page'
 import { toast } from 'react-toastify'
 import { BiCommand } from "react-icons/bi";
 
@@ -43,9 +43,27 @@ function page() {
   const handleUpdInstrct = () => {//for showing/hindding update user menu
     setUpdateUserId(!updateUserId);
   }
-  const handleDeleteUser = (_id) => {//on click delete getting current user id and storing in it
-    setUserId(_id);
+  const handledelete = () => {//for showing/hindding update user menu
+    setUserId(!userId);
   }
+  const handleupdateUserId = (_id, fname,email,lname) => {
+    const user = {
+      _id:_id,
+      name: fname,
+      lastname: lname,
+      email:email
+    };
+    setUpdateUserId(user);
+    // console.log("Update",_id)
+  }
+  const handleDeleteUser = (_id, email) => {//on click delete getting current user id and storing in it
+    const user1 = {
+      _id: _id,
+      email: email
+    }
+    setUserId(user1);
+    console.log("delete", user1)
+  };
 
   useEffect(() => {
     fetchUser();
@@ -67,17 +85,17 @@ function page() {
   return (
     <>
       <div className=' lg:flex lg:flex-col lg:justify-between mx-2'>
-        <div className='bg-white lg:h-24 rounded flex   lg:items-center text-gray-500'>
+        <div className='bg-white lg:h-24 rounded flex justify-between   items-center text-gray-500'>
           <h1 className='m-5 text-lg font-semibold flex items-center '>
             <BiCommand className='mr-2 w-6 h-6' />Instructors
           </h1>
-          <button onClick={handleNewinstructor} className="border border-gray-400 py-2 px-4 text-gray-800 hover:bg-gray-100 transition duration-300 ease-in-out">
+          <button onClick={handleNewinstructor} className="border border-gray-400 h-1/2 lg:mr-10 mr-2 py-2 px-4 text-gray-800 hover:bg-gray-100 transition duration-300 ease-in-out">
             + Add Instructor
           </button>
         </div>
         <div className='bg-white lg:h-96 my-4 rounded  '>
           {/* Instructor List data fetched  */}
-          <div className="p-4 bg-white">
+          <div className="p-4 bg-white overflow-scroll sm:overflow-visible">
             <table className="w-full mt-4 border-collapse border">
               <thead>
                 <tr className="border">
@@ -96,8 +114,8 @@ function page() {
                     <td className="border px-4 py-2">{user.email}</td>
                     <td className="border px-4 py-2">{user.role}</td>
                     <td className="px-4 py-2 flex items-center justify-around">
-                      <p onClick={() => handleUpdInstrct(user._id)} ><RiEditBoxLine size={19} /></p>
-                      <button onClick={() => handleDeleteUser(user._id)} className="text-red-500">Delete</button>
+                      <p onClick={() => handleupdateUserId(user._id,user.fname, user.email,user.lname)} ><RiEditBoxLine size={19} /></p>
+                      <button onClick={() => handleDeleteUser(user._id, user.email)} className="text-red-500">Delete</button>
                     </td>
                   </tr>
                 ))}
@@ -121,13 +139,13 @@ function page() {
             }
           </section>
           {/* onckick update show update user window */}
-          <section ref={clcUptuser} className="absolute top-36 bg-white lg:mx-0 mx-2 shadow-2xl border border-gray-400 rounded ">
+          <section ref={clcUptuser} className="absolute  top-[20%] lg:left-[40%] bg-white lg:mx-0 mx-2 shadow-2xl border border-gray-400 rounded ">
             {
               updateUserId &&
               <>
                 <div className="bg-violet-500 h-3"></div>
                 <Update userId={updateUserId} />
-                <div className="absolute bottom-7  left-8">
+                <div className="absolute bottom-3  left-8">
                   <button onClick={handleUpdInstrct} className=" hover:bg-gray-200 font-bold py-2 px-8 border   mb-5">
                     Cancel
                   </button>
@@ -136,9 +154,20 @@ function page() {
             }
           </section>
           {/* On click show menu for delete the user  */}
-          <div ref={clcDeluser}>
-            {userId && <Delete userId={userId} />}
-          </div>
+          <section ref={clcDeluser} className="absolute lg:w-[35%] w-[90%] top-1/3 lg:left-1/2 left-[37%] transform -translate-x-1/2 -translate-y-1/2 bg-white lg:mx-0 m-12 shadow-2xl  rounded">
+            {userId && (
+              <>
+                <div className="bg-violet-500 h-3"></div>
+                <Delete userId={userId} />
+                <div className="absolute bottom-0 left-8">
+                  <button onClick={handledelete} className="hover:bg-gray-200 font-bold py-2 lg:px-16 px-8 border mb-5">
+                    Cancel
+                  </button>
+                </div>
+              </>
+            )}
+          </section>
+
         </div>
 
       </div>

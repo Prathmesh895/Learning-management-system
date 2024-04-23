@@ -1,9 +1,9 @@
 'use client'
 import { RiEditBoxLine } from "react-icons/ri";
 import { useState, useEffect, useRef } from "react";
-import Delete from "@/app/delete/[id]/page";
-import Update from '@/app/update/[id]/page'
-import Add from '@/app/add/page'
+import Delete from "@/app/UserCRUD/DeleteUser/[id]/page";
+import Update from '@/app/UserCRUD/UpdateUser/[id]/page'
+import Add from '@/app/UserCRUD/adduser/page'
 import { BiCommand } from "react-icons/bi";
 function StudentList() {
     const [userData, setUserData] = useState([]);
@@ -56,12 +56,22 @@ function StudentList() {
         }
     }
 
-    const handleDeleteUser = (_id) => {
-        setDeleteUserId(_id);
-        console.log("delete", _id)
+    const handleDeleteUser = (_id,email) => {
+        const user1= {
+            _id:_id,
+            email:email
+          }
+        setDeleteUserId(user1);
+        console.log("delete", user1)
     };
-    const handleupdateUserId = (_id) => {
-        setUpdateUserId(_id);
+    const handleupdateUserId = (_id, fname,email,lname) => {
+        const user = {
+            _id:_id,
+            name: fname,
+            lastname: lname,
+            email:email
+          };
+        setUpdateUserId(user);
         // console.log("Update",_id)
     }
 
@@ -69,15 +79,16 @@ function StudentList() {
     return (
         <>
             <div className=' lg:flex lg:flex-col lg:justify-between mx-2'>
-                <div className='bg-white lg:h-24 rounded flex   lg:items-center text-gray-500'>
+                <div className='bg-white lg:h-24 rounded flex   items-center text-gray-500 justify-between'>
                     <h1 className='m-5 text-lg font-semibold flex items-center '>
                         <BiCommand className='mr-2 w-6 h-6' />Students
                     </h1>
-                    <button onClick={() => handleNewStudents()} className="border border-gray-400 py-2 px-4 text-gray-800 hover:bg-gray-100 transition duration-300 ease-in-out">
+                    <button onClick={() => handleNewStudents()} className="border h-1/2 lg:mr-10 mr-2  border-gray-400 py-2 px-4  text-gray-800 hover:bg-gray-100 transition duration-300 ease-in-out">
                         + Add New Student
                     </button>
                 </div>
-                <div className='bg-white lg:h-96 my-4 rounded  '>
+                {/* Student list  */}
+                <div className='bg-white lg:h-96 my-4 rounded  overflow-scroll sm:overflow-visible'>
                 <section>
                 <div className="p-4 bg-white">
                     <table className="w-full mt-4 border-collapse border">
@@ -98,8 +109,8 @@ function StudentList() {
                                     <td className="border px-4 py-2">{user.email}</td>
                                     <td className="border px-4 py-2">{user.role}</td>
                                     <td className="px-4 py-2 flex items-center justify-around">
-                                        <p onClick={() => handleupdateUserId(user._id)}><RiEditBoxLine size={19} /></p>
-                                        <button onClick={() => handleDeleteUser(user._id)} className="text-red-500">Delete</button>
+                                        <p onClick={() => handleupdateUserId(user._id,user.fname, user.email,user.lname)}><RiEditBoxLine size={19} /></p>
+                                        <button onClick={() => handleDeleteUser(user._id,user.email)} className="text-red-500">Delete</button>
                                     </td>
                                 </tr>
                             ))}
@@ -108,7 +119,7 @@ function StudentList() {
                 </div>
             </section>
             {/* on click on add new student it will show add user form */}
-            <section ref={clcADDuser} className="absolute top-36 bg-white lg:mx-0 mx-2 shadow-2xl border border-gray-400 rounded ">
+            <section ref={clcADDuser} className="absolute top-1/4 left-1/4  bg-white lg:mx-0 mx-2 shadow-2xl border border-gray-400 rounded ">
                 {
                     addStudents &&
                     <>
@@ -124,21 +135,30 @@ function StudentList() {
                     </>
                 }
             </section>
-            <section ref={clcDeluser}>
-                {deleteUserId && <Delete userId={deleteUserId} />}
-            </section>
-            <section ref={clcUptuser} className="absolute top-36 bg-white lg:mx-0 mx-2 shadow-2xl border border-gray-400 rounded ">
+            <section ref={clcDeluser} className="absolute lg:w-[35%] w-[90%] top-1/3 lg:left-1/2 left-[37%] transform -translate-x-1/2 -translate-y-1/2 bg-white lg:mx-0 m-12 shadow-2xl  rounded">
+          {deleteUserId && (
+            <>
+              <div className="bg-violet-500 h-3 rounded-t"></div>
+              <Delete userId={deleteUserId} />
+              <div className="absolute bottom-0 left-8">
+                <button onClick={handleDeleteStudent} className="hover:bg-gray-200 font-bold py-2 lg:px-16 px-8 border mb-5">
+                  Cancel
+                </button>
+              </div>
+            </>
+          )}
+        </section>
+            <section ref={clcUptuser} className="absolute  top-[20%] lg:left-[40%] bg-white lg:mx-0 mx-2 shadow-2xl border border-gray-400 rounded  ">
                 {
                     updateUserId &&
                     <>
                         <div className="bg-violet-500 h-3"></div>
                         <Update userId={updateUserId} />
-                        <div className="absolute bottom-7  left-8">
+                        <div className="absolute bottom-3  left-8">
                             <button onClick={handleUpdateStudent} className=" hover:bg-gray-200 font-bold py-2 px-8 border   mb-5">
                                 Cancel
                             </button>
                         </div>
-
 
                     </>
                 }

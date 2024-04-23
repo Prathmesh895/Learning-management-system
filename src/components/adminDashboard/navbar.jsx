@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { FaDiscord } from 'react-icons/fa';
+import { AiOutlineClose } from 'react-icons/ai';
 import { TfiLayoutGrid3Alt } from "react-icons/tfi";
 import { FaRegCircleQuestion } from "react-icons/fa6";
 import { MdOutlineNotificationsNone } from "react-icons/md";
@@ -11,19 +11,25 @@ import { MdOutlineSkipNext } from "react-icons/md";
 import { HiOutlineUserPlus } from "react-icons/hi2";
 import { LuNetwork } from "react-icons/lu";
 import { BsStack } from "react-icons/bs";
+import { RiMenu2Fill } from "react-icons/ri";
 import Image from 'next/image'
 import Img_logo from '/public/cropped-New-logo-File.png'
 import Link from 'next/link';
-import { useState,useRef,useEffect} from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import Sidebar from '@/components/adminDashboard/sidebar'
 
 function sidebar() {
-    const router=useRouter();
+    const router = useRouter();
     const [adminMenu, setAdminMenu] = useState('');
     const [adminMenu1, setAdminMenu1] = useState('');
+    const [isopen, setIsopen] = useState('');
     const dropdownRef = useRef(null);
     const dropdownRef1 = useRef(null);
+    const handleOpen = () => {
+        setIsopen(!isopen);
+    }
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (
@@ -55,21 +61,29 @@ function sidebar() {
         router.push('/');
         toast.success("Logout Sucessesfully")
     };
-  return (
-    <main>
-          {/* navbar section */}
-          <nav className="bg-gray-600 lg:h-16 h-14 lg:px-12 text-white lg:flex justify-between items-center shadow">
+    return (
+        <main>
+            {/* navbar section */}
+            <nav className="bg-gray-600 lg:h-16 h-14 lg:px-12 text-white lg:flex justify-between items-center shadow">
                 <div className="lg:flex lg:space-x-8 lg:items-center lg:h-16 h-14 hidden sm:block ">
                     <div><Image src={Img_logo} width={120} alt='Company log' /></div>
                     <div className='border p-2 text-sm '><Link href='/' >Visit a site</Link></div>
                 </div>
                 <div className="lg:bg-gray-600 bg-white flex items-center lg:space-x-10 space-x-6">
                     <div className='bg-violet-600 p-2 rounded text-sm hidden sm:block'>Get Services</div>
-                    <div><FaDiscord className='w-7 h-7 text-gray-500 sm:text-white' /></div>
+                    <div className='lg:hidden block'>
+                        <RiMenu2Fill onClick={handleOpen} className='w-7 h-7 text-gray-500 sm:text-white' />
+                        <div className={isopen ? "fixed left-0 top-0 w-[90%] h-screen z-50 bg-white ease-in duration-500" : "fixed left-[-100%] top-0 p-6 bg-slate-500"}>
+                        <div className='p-3 justify-end flex ' onClick={handleOpen}>
+                            <AiOutlineClose className='border text-black p-2 rounded-full' size={40} />
+                        </div>
+                        <Sidebar/>
+                        </div>
+                    </div>
                     <div ref={dropdownRef1} onClick={handleonclick1}><TfiLayoutGrid3Alt className='w-5 h-5 text-gray-500 sm:text-white' /></div>
                     <div><FaRegCircleQuestion className='w-6 h-6 text-gray-500 sm:text-white' /></div>
                     <div><MdOutlineNotificationsNone className='w-7 h-7 text-gray-500 sm:text-white' /></div>
-                    <div className='flex flex-col lg:h-16 h-14  lg:px-2 justify-center items-center bg-slate-500'  onClick={handleonclick}>
+                    <div className='flex flex-col lg:h-16 h-14  lg:px-2 justify-center items-center bg-slate-500' onClick={handleonclick}>
                         {/* <p className='overflow-auto'>{session?.user?.email}</p> */}
                         <p className=''>Administrador</p>
                     </div>
@@ -82,7 +96,7 @@ function sidebar() {
                     <BiSolidUserCircle className='mr-2' />
                     My account
                 </div>
-                <div className='flex items-center mt-1 'onClick={handleSignOut}>
+                <div className='flex items-center mt-1 ' onClick={handleSignOut}>
                     <IoSettingsSharp className='mr-2' />Settings
                 </div>
                 <div >
@@ -116,8 +130,8 @@ function sidebar() {
                 </div>
             </div>
 
-    </main>
-  )
+        </main>
+    )
 }
 
 export default sidebar
