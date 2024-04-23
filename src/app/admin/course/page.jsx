@@ -11,13 +11,13 @@ function Addcorse() {
     const handleOnsubmit = (e) => {
         e.preventDefault();
 
-        try {
-            const res = fetch("/api/courses", ({
+        // try {
+        //     const res = fetch("/api/courses", ({
 
-            }))
-        } catch (error) {
+        //     }))
+        // } catch (error) {
 
-        }
+        // }
 
     }
     return (

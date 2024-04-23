@@ -27,9 +27,9 @@ function sidebar() {
     const [isopen, setIsopen] = useState('');
     const dropdownRef = useRef(null);
     const dropdownRef1 = useRef(null);
-    const handleOpen = () => {
-        setIsopen(!isopen);
-    }
+    // const handleOpen = () => {
+    //     setIsopen(!isopen);
+    // }
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (
@@ -71,7 +71,7 @@ function sidebar() {
                 </div>
                 <div className="lg:bg-gray-600 bg-white flex items-center lg:space-x-10 space-x-6">
                     <div className='bg-violet-600 p-2 rounded text-sm hidden sm:block'>Get Services</div>
-                    <div className='lg:hidden block'>
+                    {/* <div className='lg:hidden block'>
                         <RiMenu2Fill onClick={handleOpen} className='w-7 h-7 text-gray-500 sm:text-white' />
                         <div className={isopen ? "fixed left-0 top-0 w-[90%] h-screen z-50 bg-white ease-in duration-500" : "fixed left-[-100%] top-0 p-6 bg-slate-500"}>
                         <div className='p-3 justify-end flex ' onClick={handleOpen}>
@@ -79,7 +79,7 @@ function sidebar() {
                         </div>
                         <Sidebar/>
                         </div>
-                    </div>
+                    </div> */}
                     <div ref={dropdownRef1} onClick={handleonclick1}><TfiLayoutGrid3Alt className='w-5 h-5 text-gray-500 sm:text-white' /></div>
                     <div><FaRegCircleQuestion className='w-6 h-6 text-gray-500 sm:text-white' /></div>
                     <div><MdOutlineNotificationsNone className='w-7 h-7 text-gray-500 sm:text-white' /></div>

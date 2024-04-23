@@ -81,10 +81,10 @@ const items = [
 
 function Admin() {
     const [expandedItems, setExpandedItems] = useState([]);
-    const [isopen, setIsopen] = useState('');
-    const handleOpen = () => {
-        setIsopen(!isopen);
-    }
+    // const [isopen, setIsopen] = useState('');
+    // const handleOpen = () => {
+    //     setIsopen(!isopen);
+    // }
     const handleItemClick = (itemName, itemLink) => {
         if (subItems[itemName]?.length === 0) {
             // If the clicked item has no sub-items, redirect to the provided link
@@ -99,8 +99,6 @@ function Admin() {
             }
         }
     };
-
-
 
     return (
         <>
@@ -135,9 +133,7 @@ function Admin() {
                     </React.Fragment>
                 ))}
             </div>
-
-
-            <div className='lg:hidden block'>
+            {/* <div className='lg:hidden block'>
                 <RiMenu2Fill onClick={handleOpen} className='w-7 h-7 text-gray-500 sm:text-white' />
                 <div className={isopen ? "fixed left-0 top-0 w-[90%] h-screen z-50 bg-white ease-in duration-500" : "fixed left-[-100%] top-0 p-6 bg-slate-500"}>
                     <div className='p-3 justify-end flex ' onClick={handleOpen}>
@@ -145,35 +141,7 @@ function Admin() {
                     </div>
                     <Sidebar />
                 </div>
-            </div>
-
-
-            <div className='lg:hidden'>
-                {items.map((item, index) => (
-                    <React.Fragment key={index}>
-                        <div
-                            className="hover:text-violet-600 flex items-center px-8"
-                            onClick={() => handleItemClick(item.name, item.link)}
-                        >
-                            {React.createElement(icons[index], { className: 'mr-2' })}
-                            {item.name}
-                            {/* Check if sub-items exist for the current item */}
-                            {subItems[item.name]?.length > 0 && (
-                                <MdArrowForwardIos className={`ml-auto ${expandedItems.includes(item.name) ? 'transform rotate-90' : ''}`} />
-                            )}
-                        </div>
-                        {/* Render sub-items if the current item is expanded */}
-                        {expandedItems.includes(item.name) &&
-                            subItems[item.name].map((subItem, subIndex) => (
-                                <Link href={subItem.link} key={`${index}-${subIndex}`}>
-                                    <div className="hover:text-violet-600 flex items-center px-12">
-                                        {subItem.name}
-                                    </div>
-                                </Link>
-                            ))}
-                    </React.Fragment>
-                ))}
-            </div>
+            </div> */}
         </>
     );
 }
