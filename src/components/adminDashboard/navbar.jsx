@@ -30,16 +30,10 @@ function sidebar() {
     
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (
-                dropdownRef.current &&
-                !dropdownRef.current.contains(event.target)
-            ) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setAdminMenu(false);
             }
-            if (
-                dropdownRef1.current &&
-                !dropdownRef1.current.contains(event.target)
-            ) {
+            if ( dropdownRef1.current && !dropdownRef1.current.contains(event.target)) {
                 setAdminMenu1(false);
             }
         };
@@ -67,23 +61,13 @@ function sidebar() {
                     <div><Image src={Img_logo} width={120} alt='Company log' /></div>
                     <div className='border p-2 text-sm '><Link href='/' >Visit a site</Link></div>
                 </div>
-                <div className="lg:bg-gray-600 bg-white flex items-center lg:space-x-10 space-x-6">
-                    <div className='bg-violet-600 p-2 rounded text-sm hidden sm:block'>Get Services</div>
-                    {/* <div className='lg:hidden block'>
-                        <RiMenu2Fill onClick={handleOpen} className='w-7 h-7 text-gray-500 sm:text-white' />
-                        <div className={isopen ? "fixed left-0 top-0 w-[90%] h-screen z-50 bg-white ease-in duration-500" : "fixed left-[-100%] top-0 p-6 bg-slate-500"}>
-                        <div className='p-3 justify-end flex ' onClick={handleOpen}>
-                            <AiOutlineClose className='border text-black p-2 rounded-full' size={40} />
-                        </div>
-                        <Sidebar/>
-                        </div>
-                    </div> */}
+                <div className="lg:bg-gray-600 justify-end pr-5 bg-white flex items-center lg:space-x-10 space-x-6">
                     <div ref={dropdownRef1} onClick={handleonclick1}><TfiLayoutGrid3Alt className='w-5 h-5 text-gray-500 sm:text-white' /></div>
                     <div><FaRegCircleQuestion className='w-6 h-6 text-gray-500 sm:text-white' /></div>
                     <div><MdOutlineNotificationsNone className='w-7 h-7 text-gray-500 sm:text-white' /></div>
                     <div className='flex flex-col lg:h-16 h-14  lg:px-2 justify-center items-center bg-slate-500' onClick={handleonclick}>
                         {/* <p className='overflow-auto'>{session?.user?.email}</p> */}
-                        <p className=''>Administrador</p>
+                        <p className=''>Administrator</p>
                     </div>
                 </div>
             </nav>

@@ -8,7 +8,7 @@ import { IoHomeSharp } from "react-icons/io5";
 function Courses() {
     return (
         <>
-          {/* <section className=' text-white lg:mb-5 mb-10'>
+          <section className=' text-white lg:mb-5 mb-10'>
                 <div className='absolute -z-10'>
                     <Image src={BG} alt="coursebg" className='relative lg:h-56 h-36' />
                 </div>
@@ -24,7 +24,7 @@ function Courses() {
                     </div>
                 </div>
                 
-            </section>  */}
+            </section> 
         </>
     )
 }

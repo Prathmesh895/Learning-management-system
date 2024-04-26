@@ -16,7 +16,7 @@ import { FaUserCog } from 'react-icons/fa';
 import { GiSettingsKnobs } from 'react-icons/gi';
 import { BsBrush } from 'react-icons/bs';
 import { GrSupport } from 'react-icons/gr';
-import { AiOutlinePieChart, AiOutlineClose} from 'react-icons/ai';
+import { AiOutlinePieChart, AiOutlineClose } from 'react-icons/ai';
 import { MdOutlineContactPhone, MdArrowForwardIos } from 'react-icons/md';
 
 const icons = [
@@ -81,25 +81,49 @@ const items = [
 
 function Admin() {
     const [expandedItems, setExpandedItems] = useState([]);
-    // const [isopen, setIsopen] = useState('');
-    // const handleOpen = () => {
-    //     setIsopen(!isopen);
-    // }
-    const handleItemClick = (itemName, itemLink) => {
-        if (subItems[itemName]?.length === 0) {
-            // If the clicked item has no sub-items, redirect to the provided link
-            window.location.href = itemLink;
-        } else {
-            if (expandedItems === null || expandedItems !== itemName) {
-                // Close the previously expanded item and open the clicked item
-                setExpandedItems([itemName]);
-            } else {
+    const [isopen, setIsopen] = useState(false);
+    const handleOpen = () => {
+        setIsopen(!isopen);
+    }
+    // const handleItemClick = (itemName, itemLink) => {
+    //     if (subItems[itemName]?.length === 0) {
+    //         // If the clicked item has no sub-items, redirect to the provided link
+    //         window.location.href = itemLink;
+    //         setIsopen(false); // Close the sidebar
+    //     } else {
+    //         if (expandedItems === null || expandedItems !== itemName) {
+    //             // Close the previously expanded item and open the clicked item
+    //             setExpandedItems([itemName]);
+    //         } else {
+    //             // If the clicked item is already expanded, close it
+    //             setExpandedItems([]);
+    //         }
+    //     }
+    // };
+    const handleItemClick = (itemName, itemLink, event) => {
+        if (event && event.stopPropagation) {
+            event.stopPropagation(); // Stop propagation of the click event
+        }
+        
+        // Toggle the expanded state of the clicked item
+        setExpandedItems(prevExpandedItems => {
+            if (prevExpandedItems.includes(itemName)) {
                 // If the clicked item is already expanded, close it
-                setExpandedItems([]);
+                return prevExpandedItems.filter(item => item !== itemName);
+            } else {
+                // If the clicked item is not expanded, expand it
+                return [...prevExpandedItems, itemName];
             }
+        });
+    
+        // If the clicked item has no sub-items, redirect to the provided link
+        if (subItems[itemName]?.length === 0) {
+            window.location.href = itemLink;
+            setIsopen(false); // Close the sidebar
         }
     };
-
+    
+    
     return (
         <>
 
@@ -133,7 +157,43 @@ function Admin() {
                     </React.Fragment>
                 ))}
             </div>
-           
+
+            {/* Side bar code  */}
+            <div className='lg:hidden block'>
+            <RiMenu2Fill  onClick={handleOpen} size={35} className=' text-gray-500 sm:text-white absolute top-20 left-2' />
+                <div className={isopen ? "fixed left-0 top-0 w-[90%] h-screen z-50 bg-white ease-in duration-500" : "fixed left-[-100%] top-0 p-6 bg-slate-500"}>
+                    <div className='p-3 justify-end flex ' onClick={handleOpen}>
+                        <AiOutlineClose className='border text-black p-2 rounded-full' size={40} />
+                    </div>
+                    <div className='flex flex-col space-y-5'>
+                        
+                    {items.map((item, index) => (
+                    <React.Fragment key={index}>
+                        <div
+                            className="hover:text-violet-600 flex items-center px-8"
+                            onClick={() => handleItemClick(item.name, item.link)}
+                        >
+                            {React.createElement(icons[index], { className: 'mr-2' })}
+                            {item.name}
+                            {/* Check if sub-items exist for the current item */}
+                            {subItems[item.name]?.length > 0 && (
+                                <MdArrowForwardIos className={`ml-auto ${expandedItems.includes(item.name) ? 'transform rotate-90' : ''}`} />
+                            )}
+                        </div>
+                        {/* Render sub-items if the current item is expanded */}
+                        {expandedItems.includes(item.name) &&
+                            subItems[item.name].map((subItem, subIndex) => (
+                                <Link href={subItem.link} key={`${index}-${subIndex}`}>
+                                    <div className="hover:text-violet-600 flex items-center px-12">
+                                        {subItem.name}
+                                    </div>
+                                </Link>
+                            ))}
+                    </React.Fragment>
+                ))}
+                    </div>
+                </div>
+            </div>
         </>
     );
 }

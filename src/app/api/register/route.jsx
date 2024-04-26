@@ -10,10 +10,6 @@ export async function POST(req) {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await connectMongoDB();
-    // Ensure that role is either 'student' or 'Subadmin'instructor
-    // if (role !== 'student' && role !== 'Subadmin' && role !== 'Instructor' ) {
-    //   return NextResponse.json({ message: "Invalid role." }, { status: 400 });
-    // }
     await User.create({ fname, lname, email, password: hashedPassword, role });
 
     return NextResponse.json({ message: "User registered." }, { status: 201 });
@@ -24,7 +20,6 @@ export async function POST(req) {
     if (error.code === 11000 && error.keyPattern.fname) {
       return NextResponse.json({ message: "User with this email already exists." }, { status: 400 });
     }
-
     return NextResponse.json({ message: "An error occurred while registering the user." }, { status: 500 });
   }
 }
@@ -72,7 +67,6 @@ export async function PUT(req) {
     if (!updatedUser) {
       return NextResponse.json({ message: 'User not found' }, { status: 404 });
     }
-
     return NextResponse.json({ updatedUser });
   } catch (error) {
     console.log("Cannot Update the User:", error);

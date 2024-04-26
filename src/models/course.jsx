@@ -3,25 +3,45 @@ import mongoose, { models } from "mongoose";
 const CourseSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: [true, "Please provide a username"],
-        unique: true,
+        required: [true, "Please provide a title"],
+       
     },
-    description:{
+    description: {
         type: String,
-        required:true,
-        unique:true
+        required: [true, "Please provide a description"],
     },
-    category:{
+    category: {
+        type: String,
+        required: [true, "Please provide a category"],
+    },
+    Level: {
+        type: String,
+        required: [true, "Please provide a level"],
+    },
+    price: {
+        type: Number,
+        required: [true, "Please provide a price"],
+    },
+    CourseUrl: {
+        type: String,
+        required: [true, "Please provide a URL"],
+    },
+    isfree: {
         type:String,
-        required:true,
-        unique:true
     },
-    price:{
-        type:Number,
-        required:true,
-        unique:true
-    }
-    
+    langauge: {
+        type: String,
+        required: [true, "Please provide a langauge"],
+    },
+    expiry: {
+        type: String,
+        required: [true, "Please provide a langauge"],
+    },
+    CreatedBy: {
+        type: String,
+        required: [true, "Please provide a Creater"],
+    },
+
 },
 { timestamps: true } 
 )
