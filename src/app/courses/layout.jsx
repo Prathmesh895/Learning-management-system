@@ -1,6 +1,4 @@
 import Sidebar from '@/app/courses/sidebar/page'
-import CourseList from '@/app/courses/courselist/page'
-import Drow from '@/components/dropdowm'
 import Nav from '@/components/courses/nav'
 
 export default function Courses({ children }) {

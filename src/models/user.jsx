@@ -4,12 +4,10 @@ const userSchema = new mongoose.Schema({
     fname: {
         type: String,
         required: [true, "Please provide a username"],
-        unique: true,
     },
     lname: {
         type: String,
         required: [true, "Please provide a email"],
-        unique: true,
     },
     email: {
         type: String,

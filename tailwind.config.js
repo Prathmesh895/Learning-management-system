@@ -12,6 +12,11 @@ export const theme = {
     },
     fontFamily: {
       'sans': ['Inter','sans-serif'],
+    },
+    borderWidth: {
+      DEFAULT: '1px',
+      '3': '3px',
+      '6': '6px'
     }
   },
 };

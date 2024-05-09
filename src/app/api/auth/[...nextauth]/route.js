@@ -18,7 +18,7 @@ export const authOptions = {
                     if (!user || !bcrypt.compare(password, user.password)) {
                         return null;
                     }
-
+ 
                     // Assigning userRole based on email
                     let userRole = "student"; // Default role
                     if (email === "user1@gmail.com") {

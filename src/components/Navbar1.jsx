@@ -35,8 +35,8 @@ import { toast } from 'react-toastify';
     ];
 
     return (
-        <main>
-            <nav className='p-5 md:mx-36 font-semibold'>
+        <main className='border-b border-gray-300'>
+            <nav className='p-5 md:mx-36 font-semibold '>
                 <div className=' md:block hidden'>
                     <ul className='flex justify-around items-center '>
                         <li><Link href='/'><Image src={Logo} alt="company" className='w-28' /></Link></li>

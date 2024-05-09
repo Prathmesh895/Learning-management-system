@@ -6,3 +6,9 @@ input {
     @apply  py-2 px-6 bg-white border ;
   }
   
+  .pointer {
+    -webkit-clip-path: polygon(calc(0.25em* 42 * 0.85) 0, calc(0.25em* 42) 50%, calc(0.25em* 42 * 0.85) 100%, 0% 100%, calc(0.25em* 32 * 0.15) 50%, 0% 0%);
+            clip-path: polygon(calc(0.25em* 42 * 0.85) 0, calc(0.25em* 42) 50%, calc(0.25em* 42 * 0.85) 100%, 0% 100%, calc(0.25em* 32 * 0.15) 50%, 0% 0%);
+  }
+  
+  

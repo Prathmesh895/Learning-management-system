@@ -1,7 +1,9 @@
 "use client"
 import React, { useState } from 'react'
 import { BiCommand } from "react-icons/bi";
+import { useSession } from 'next-auth/react';
 function Addcorse() {
+    const {data:session} = useSession('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
@@ -12,6 +14,8 @@ function Addcorse() {
     const [expiry, setExpiry] = useState('');
     const [isfree, setIsfree] = useState('');
     const [message, setMessage] = useState('');
+    const [Iscertificate,setIscertificate]=useState('');
+    const [CreatedBy,setCreatedBY]=useState('')
     const [error, setError] = useState('');
 
 
@@ -25,10 +29,10 @@ function Addcorse() {
             console.log("All field are requires");
             return;
         }
-        const CreatedBy = 'Admin';
+        // const AddedBy = {session?.user?.email}
         console.log({ title, description, category, Level, price, CourseUrl, langauge, isfree, expiry, CreatedBy })
         try {
-            const res = await fetch("/api/courses", ({
+            const res = await fetch("/api/add_courses", ({
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -178,6 +182,25 @@ function Addcorse() {
                                         onChange={(e) => setExpiry(e.target.value)}
                                     />
                                     <label htmlFor="limitedTime">Limited time</label>
+                                </div>
+                                <div className='flex flex-col lg:flex-row justify-between'>
+                                    <label htmlFor="courseVideo">Created By (instructor name)</label>
+                                    <input type="url" value={CreatedBy}
+                                        onChange={(e) => setCreatedBY(e.target.value)}
+                                        className='lg:w-[70%] rounded-md'
+                                        placeholder='John Doe'
+                                    />
+                                </div>
+                                <div>
+                                <input
+                                        type="checkbox"
+                                        name="Iscertificate "
+                                        value="Yes"
+                                        checked={Iscertificate === 'Yes'}
+                                        onChange={(e) => setIscertificate(e.target.value)}
+                                        className='mr-2'
+                                    />                                    
+                                    <label htmlFor="Iscertificate">Certificate</label>
                                 </div>
                                 <input type="submit" value="Add Course"
                                     className='bg-violet-500 text-white lg:w-[40%] w-full ml-auto' />
