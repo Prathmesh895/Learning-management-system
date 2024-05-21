@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect,Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter} from 'next/navigation';
 import { FaDotCircle, FaCircle } from "react-icons/fa";
 
 export const categories = [
@@ -26,11 +26,7 @@ function Page() {
   const [selectedLevel, setselectedLevel] = useState(null);
   const [showAdditionalCategories, setShowAdditionalCategories] = useState(false);
 
-  const [serchParams, setSearchParams] = useSearchParams({ q: "" });
-  // const q = serchParams.get('q');
-  console.log(serchParams)
-
-  console.log(selectedPrice, selectedLevel)
+  
 
   useEffect(() => {
     fetchCourses();
@@ -64,26 +60,7 @@ function Page() {
     router.push(`/courses/coursesByC/${category}`);
   };
 
-  // const handleClickSubcategory = (subcategory) => {
-  //   setSelectedCategory(null);
-  //   setSelectedSubcategory(subcategory);
-  //   // Initialize an empty string for the query parameters
-  //   let queryParams = '';
-  //   // Add selectedPrice query parameter if it exists
-  //   if (selectedPrice !== null) {
-  //     queryParams += `&Price=${selectedPrice}`;
-  //   }
-  //   if (selectedLevel !== null) {
-  //     queryParams += `&Level=${selectedLevel}`;
-  //   }
-  //   if (queryParams) {
-  //     queryParams = '?' + queryParams.substring(1);
-  //   }
-  //   // Concatenate the subcategory and query parameters to the pathname string
-  //   const pathname = `/courses/coursesByC/${subcategory}${queryParams}`;
 
-  //   router.push(pathname);
-  // };
   const handleClickSubcategory = (subcategory) => {
     setSelectedCategory(null);
     setSelectedSubcategory(subcategory);

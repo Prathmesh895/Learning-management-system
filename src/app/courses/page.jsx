@@ -4,10 +4,8 @@ import Image from 'next/image'
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { BsStarFill } from "react-icons/bs";
-import { BsStar } from "react-icons/bs";
 import { MdOutlineWatchLater } from "react-icons/md"
 import { FaClosedCaptioning, FaRegRectangleList } from "react-icons/fa6";
-import SideBar from '@/app/courses/sidebar/page'
 
 
 function Courses() {
