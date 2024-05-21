@@ -76,6 +76,7 @@ export default function Courselist({ params}) {
               <Image src={PNG} alt='course logo' className=' lg:w-52 lg:h-44 lg:rounded-l-xl rounded-t-xl lg:rounded-tr-none' />
             </div>
             {/* secomnd div info  */}
+            
             <div className='flex flex-col   p-3 justify-between lg:w-[73%]'>
               <div className='px-2'>
                 <h1 className='text-md font-semibold mt-1 '>{course.title}</h1>

@@ -36,7 +36,7 @@ function Page() {
     fetchCourses();
   }, [selectedPrice, selectedLevel]);
 
-
+// fetch courses 
   const fetchCourses = async () => {
     try {
       const res = await fetch('/api/add_courses', {
