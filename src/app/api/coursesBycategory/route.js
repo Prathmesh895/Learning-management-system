@@ -8,7 +8,9 @@ import { ObjectId } from 'mongodb';
 export async function POST(req) {
     try {
         await connectMongoDB();
-        const { id, decodedCategory } = await req.json();
+        const { id, decodedCategory,NewPrice,isfree } = await req.json();
+        console.log("NewPrice",NewPrice);
+        console.log("isfree",isfree);
         let response;
         
         if (id) {
@@ -27,7 +29,15 @@ export async function POST(req) {
             const DecodedCategory = await Courses.find({});
             response = { DecodedCategory };
 
-        }else {
+        }else if (decodedCategory && NewPrice ) {
+            const DecodedCategory = await Courses.find({category: decodedCategory,price:{ $gt: 0, $ne: null  }});
+            response = { DecodedCategory };
+
+        }else if (decodedCategory && isfree ) {
+            const DecodedCategory = await Courses.find({category: decodedCategory,isfree:isfree});
+            response = { DecodedCategory };
+        }
+        else {
             const DecodedCategory = await Courses.find({ category: decodedCategory });
             response = { DecodedCategory };
             console.log("decodedCategory",decodedCategory);

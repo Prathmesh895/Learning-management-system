@@ -16,10 +16,6 @@ export async function POST(req) {
   } catch (error) {
     console.error("Error registering user:", error);
 
-    // Check if the error is a duplicate key error
-    if (error.code === 11000 && error.keyPattern.fname) {
-      return NextResponse.json({ message: "User with this email already exists." }, { status: 400 });
-    }
     return NextResponse.json({ message: "An error occurred while registering the user." }, { status: 500 });
   }
 }
@@ -73,30 +69,3 @@ export async function PUT(req) {
     return NextResponse.json({ message: "An error occurred while Updating User Account." }, { status: 500 });
   }
 }
-
-// export async function PUT(req) {
-//   try {
-//     const { id, fname, lname } = await req.json();
-//     await connectMongoDB();
-    
-//     // Fetch the existing user data from the database
-//     const existingUser = await User.findById(id);
-//     if (!existingUser) {
-//       return NextResponse.json({ message: 'User not found' }, { status: 404 });
-//     }
-
-//     // Update only the fields that are provided in the request body
-//     if (fname) existingUser.fname = fname;
-//     if (lname) existingUser.lname = lname;
-   
-
-//     // Save the updated user data
-//     const updatedUser = await existingUser.save();
-
-//     return NextResponse.json({ updatedUser });
-//   } catch (error) {
-//     console.log("Cannot Update the User:", error);
-//     return NextResponse.json({ message: "An error occurred while Updating User Account." }, { status: 500 });
-//   }
-// }
-

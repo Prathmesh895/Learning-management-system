@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FaDotCircle, FaCircle } from "react-icons/fa";
 
 export const categories = [
@@ -25,19 +25,17 @@ function Page() {
   const [selectedPrice, setselectedPrice] = useState(null);
   const [selectedLevel, setselectedLevel] = useState(null);
   const [showAdditionalCategories, setShowAdditionalCategories] = useState(false);
-  
-  console.log(selectedPrice,selectedLevel)
-// to show initialy all courses 
-  useEffect(() => {
-    if(categories.length > 0){
-      setSelectedCategory(categories[0].category)
-    }
-  }, [categories]);
+
+  const [serchParams, setSearchParams] = useSearchParams({ q: "" });
+  // const q = serchParams.get('q');
+  console.log(serchParams)
+
+  console.log(selectedPrice, selectedLevel)
 
   useEffect(() => {
     fetchCourses();
   }, [selectedPrice, selectedLevel]);
-  
+
 
   const fetchCourses = async () => {
     try {
@@ -72,10 +70,10 @@ function Page() {
     // Initialize an empty string for the query parameters
     let queryParams = '';
     // Add selectedPrice query parameter if it exists
-    if (selectedPrice!==null) {
+    if (selectedPrice !== null) {
       queryParams += `&Price=${selectedPrice}`;
     }
-    if (selectedLevel!==null) {
+    if (selectedLevel !== null) {
       queryParams += `&Level=${selectedLevel}`;
     }
     if (queryParams) {
@@ -83,12 +81,12 @@ function Page() {
     }
     // Concatenate the subcategory and query parameters to the pathname string
     const pathname = `/courses/coursesByC/${subcategory}${queryParams}`;
-  
+
     router.push(pathname);
   };
-  
-  
- 
+
+
+
   const toggleAdditionalCategories = () => {
     setShowAdditionalCategories(prevState => !prevState);
   };
@@ -149,7 +147,13 @@ function Page() {
                     </div>
                     <ul>
                       {group.subcategories.map((subcategory, i) => (
-                        <li key={i} className="capitalize flex ml-4 my-4" onClick={() => handleClickSubcategory(subcategory)}>
+                        // <li key={i} className="capitalize flex ml-4 my-4" onClick={() => handleClickSubcategory(subcategory)}>
+                        <li key={i} className="capitalize flex ml-4 my-4"
+                        //  onClick={() => handleClickSubcategory(subcategory)}
+                         value={serchParams}
+                         onClick={(e) => setSearchParams(e.target.value) }
+                        >
+
                           <div className='flex space-x-2 items-center'>
                             {selectedSubcategory === subcategory ?
                               <FaDotCircle className='text-violet-600' size={18} /> :
@@ -213,9 +217,3 @@ function Page() {
 }
 
 export default Page;
-
-
-
-
-
-

@@ -89,7 +89,7 @@ function page() {
           <h1 className='m-5 text-lg font-semibold flex items-center '>
             <BiCommand className='mr-2 w-6 h-6' />Instructors
           </h1>
-          <button onClick={handleNewinstructor} className="border border-gray-400 h-1/2 lg:mr-10 mr-2 py-2 px-4 text-gray-800 hover:bg-gray-100 transition duration-300 ease-in-out">
+          <button onClick={handleNewinstructor} className="border  lg:mr-10 mr-2  border-violet-500 py-2 px-4 rounded-full  text-violet-500 hover:bg-violet-500 hover:text-white  transition duration-300 ease-in-out">
             + Add Instructor
           </button>
         </div>
@@ -114,7 +114,7 @@ function page() {
                     <td className="border px-4 py-2">{user.email}</td>
                     <td className="border px-4 py-2">{user.role}</td>
                     <td className="px-4 py-2 flex items-center justify-around">
-                      <p onClick={() => handleupdateUserId(user._id,user.fname, user.email,user.lname)} ><RiEditBoxLine size={19} /></p>
+                      <p onClick={() => handleupdateUserId(user._id,user.fname, user.email,user.lname)} ><RiEditBoxLine size={19} title="Edit"/></p>
                       <button onClick={() => handleDeleteUser(user._id, user.email)} className="text-red-500">Delete</button>
                     </td>
                   </tr>

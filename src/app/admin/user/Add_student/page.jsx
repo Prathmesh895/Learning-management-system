@@ -81,9 +81,9 @@ function StudentList() {
             <div className=' lg:flex lg:flex-col lg:justify-between mx-2'>
                 <div className='bg-white lg:h-24 rounded flex   items-center text-gray-500 justify-between'>
                     <h1 className='m-5 text-lg font-semibold flex items-center '>
-                        <BiCommand className='mr-2 w-6 h-6' />Students
+                        <BiCommand className='mx-4 w-6 h-6' />Students
                     </h1>
-                    <button onClick={() => handleNewStudents()} className="border h-1/2 lg:mr-10 mr-2  border-gray-400 py-2 px-4  text-gray-800 hover:bg-gray-100 transition duration-300 ease-in-out">
+                    <button onClick={() => handleNewStudents()} className="border  lg:mr-10 mr-2  border-violet-500 py-2 px-4 rounded-full  text-violet-500 hover:bg-violet-500 hover:text-white  transition duration-300 ease-in-out">
                         + Add New Student
                     </button>
                 </div>
@@ -109,7 +109,7 @@ function StudentList() {
                                     <td className="border px-4 py-2">{user.email}</td>
                                     <td className="border px-4 py-2">{user.role}</td>
                                     <td className="px-4 py-2 flex items-center justify-around">
-                                        <p onClick={() => handleupdateUserId(user._id,user.fname, user.email,user.lname)}><RiEditBoxLine size={19} /></p>
+                                        <p onClick={() => handleupdateUserId(user._id,user.fname, user.email,user.lname)}><RiEditBoxLine size={19} title="Edit"/></p>
                                         <button onClick={() => handleDeleteUser(user._id,user.email)} className="text-red-500">Delete</button>
                                     </td>
                                 </tr>

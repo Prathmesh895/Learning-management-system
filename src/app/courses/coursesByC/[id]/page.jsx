@@ -16,7 +16,16 @@ export default function Courselist({ params}) {
   const searchParams = useSearchParams()
   console.log(" Price:",searchParams.get("Price"));
   console.log(" Level:",searchParams.get("Level"));
-  const Price =searchParams.get("Price");
+  let Price =searchParams.get("Price");
+  let NewPrice;
+  if (Price == "Paid"){
+    NewPrice = Price =1
+  }
+  let isfree;
+  if (Price == "Free"){
+      isfree=Price='free';
+}
+  console.log("Opricwe",Price);
   const Level =searchParams.get("Level");
   const router = useRouter();
   const [CourseData, setCourseData] = useState([]);
@@ -38,7 +47,7 @@ export default function Courselist({ params}) {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ decodedCategory})
+        body: JSON.stringify({ decodedCategory,NewPrice,isfree})
       });
       const data = await res.json();
       setCourseData(data.DecodedCategory);

@@ -1,7 +1,6 @@
 "use client"
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Sidebar from '@/components/adminDashboard/sidebar';
 import { TfiLayoutGrid3Alt } from 'react-icons/tfi';
 import { RiMenu2Fill } from "react-icons/ri";
 import { LuNetwork } from 'react-icons/lu';
@@ -45,8 +44,7 @@ const icons = [
 // Define sub-items for each main item with name and link
 const subItems = {
     Dashboard: [],
-    Course: [{ name: 'Manage Courses', link: '/admin/course/subitem1' },
-    { name: 'Add new course', link: '/admin/course' }],
+    Course: [{ name: 'Manage Courses', link: '/admin/course/managecourses' },],
     Bootcamp: [],
     Report: [],
     Affiliate: [],
@@ -85,26 +83,12 @@ function Admin() {
     const handleOpen = () => {
         setIsopen(!isopen);
     }
-    // const handleItemClick = (itemName, itemLink) => {
-    //     if (subItems[itemName]?.length === 0) {
-    //         // If the clicked item has no sub-items, redirect to the provided link
-    //         window.location.href = itemLink;
-    //         setIsopen(false); // Close the sidebar
-    //     } else {
-    //         if (expandedItems === null || expandedItems !== itemName) {
-    //             // Close the previously expanded item and open the clicked item
-    //             setExpandedItems([itemName]);
-    //         } else {
-    //             // If the clicked item is already expanded, close it
-    //             setExpandedItems([]);
-    //         }
-    //     }
-    // };
+
     const handleItemClick = (itemName, itemLink, event) => {
         if (event && event.stopPropagation) {
             event.stopPropagation(); // Stop propagation of the click event
         }
-        
+
         // Toggle the expanded state of the clicked item
         setExpandedItems(prevExpandedItems => {
             if (prevExpandedItems.includes(itemName)) {
@@ -115,19 +99,17 @@ function Admin() {
                 return [...prevExpandedItems, itemName];
             }
         });
-    
+
         // If the clicked item has no sub-items, redirect to the provided link
         if (subItems[itemName]?.length === 0) {
             window.location.href = itemLink;
             setIsopen(false); // Close the sidebar
         }
     };
-    
-    
+
     return (
         <>
-
-            <div className="bg-white lg:flex lg:flex-col lg:space-y-6 text-gray-500 text-sm hidden  rounded shadow-lg">
+            <div className="bg-white lg:flex lg:flex-col lg:space-y-6 text-gray-500 text-sm hidden min-h-screen  rounded shadow-lg">
                 <div className="flex flex-col lg:h-16 h-14 lg:px-2 justify-center items-center hover:text-blue-500 rounded-t">
                     <p>Administrador</p>
                 </div>
@@ -160,37 +142,37 @@ function Admin() {
 
             {/* Side bar code  */}
             <div className='lg:hidden block'>
-            <RiMenu2Fill  onClick={handleOpen} size={35} className=' text-gray-500 sm:text-white absolute top-20 left-2' />
+                <RiMenu2Fill onClick={handleOpen} size={35} className=' text-gray-500 sm:text-white absolute top-20 left-2' />
                 <div className={isopen ? "fixed left-0 top-0 w-[90%] h-screen z-50 bg-white ease-in duration-500" : "fixed left-[-100%] top-0 p-6 bg-slate-500"}>
                     <div className='p-3 justify-end flex ' onClick={handleOpen}>
                         <AiOutlineClose className='border text-black p-2 rounded-full' size={40} />
                     </div>
                     <div className='flex flex-col space-y-5'>
-                        
-                    {items.map((item, index) => (
-                    <React.Fragment key={index}>
-                        <div
-                            className="hover:text-violet-600 flex items-center px-8"
-                            onClick={() => handleItemClick(item.name, item.link)}
-                        >
-                            {React.createElement(icons[index], { className: 'mr-2' })}
-                            {item.name}
-                            {/* Check if sub-items exist for the current item */}
-                            {subItems[item.name]?.length > 0 && (
-                                <MdArrowForwardIos className={`ml-auto ${expandedItems.includes(item.name) ? 'transform rotate-90' : ''}`} />
-                            )}
-                        </div>
-                        {/* Render sub-items if the current item is expanded */}
-                        {expandedItems.includes(item.name) &&
-                            subItems[item.name].map((subItem, subIndex) => (
-                                <Link href={subItem.link} key={`${index}-${subIndex}`}>
-                                    <div className="hover:text-violet-600 flex items-center px-12">
-                                        {subItem.name}
-                                    </div>
-                                </Link>
-                            ))}
-                    </React.Fragment>
-                ))}
+
+                        {items.map((item, index) => (
+                            <React.Fragment key={index}>
+                                <div
+                                    className="hover:text-violet-600 flex items-center px-8"
+                                    onClick={() => handleItemClick(item.name, item.link)}
+                                >
+                                    {React.createElement(icons[index], { className: 'mr-2' })}
+                                    {item.name}
+                                    {/* Check if sub-items exist for the current item */}
+                                    {subItems[item.name]?.length > 0 && (
+                                        <MdArrowForwardIos className={`ml-auto ${expandedItems.includes(item.name) ? 'transform rotate-90' : ''}`} />
+                                    )}
+                                </div>
+                                {/* Render sub-items if the current item is expanded */}
+                                {expandedItems.includes(item.name) &&
+                                    subItems[item.name].map((subItem, subIndex) => (
+                                        <Link href={subItem.link} key={`${index}-${subIndex}`}>
+                                            <div className="hover:text-violet-600 flex items-center px-12">
+                                                {subItem.name}
+                                            </div>
+                                        </Link>
+                                    ))}
+                            </React.Fragment>
+                        ))}
                     </div>
                 </div>
             </div>

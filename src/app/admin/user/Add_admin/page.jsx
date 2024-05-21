@@ -87,7 +87,7 @@ function AdminList() {
           <h1 className='m-5 text-lg font-semibold flex items-center '>
             <BiCommand className='mr-2 w-6 h-6' />ADMINS
           </h1>
-          <button onClick={NewAdmin} className="border h-1/2 lg:mr-10 mr-2  border-gray-400 py-2 px-4  text-gray-800 hover:bg-gray-100 transition duration-300 ease-in-out">
+          <button onClick={NewAdmin} className="border  lg:mr-10 mr-2  border-violet-500 py-2 px-4 rounded-full  text-violet-500 hover:bg-violet-500 hover:text-white  transition duration-300 ease-in-out">
             + Add SubAdmin
           </button>
         </div>

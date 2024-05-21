@@ -29,7 +29,7 @@ import { toast } from 'react-toastify';
         { title: 'Bootcamps', href: '/Bootcamps' },
         { title: 'Team training', href: '/Team training' },
         { title: 'Ebook', href: '/Ebook' },
-        { title: 'Find tutor', href: '/Find+tutor' },
+        { title: 'Find tutor', href: '/Findtutor' },
         { title: 'More', href: '/More' },
         { title: 'Cart', href: '/Cart' }
     ];
