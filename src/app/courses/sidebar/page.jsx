@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FaDotCircle, FaCircle } from "react-icons/fa";
 
@@ -96,6 +96,7 @@ function Page() {
   };
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <section className='bg-white p-8 shadow-xl flex flex-col  rounded-md text-gray-500'>
       <h1 className='text-xl font-semibold mb-4'>Categories</h1>
       {categories.map((group, index) => (
@@ -216,7 +217,7 @@ function Page() {
         }
       </div>
     </section>
-
+    </Suspense>
   );
 }
 
