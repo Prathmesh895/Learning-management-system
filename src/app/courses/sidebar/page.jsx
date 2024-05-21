@@ -64,27 +64,31 @@ function Page() {
     router.push(`/courses/coursesByC/${category}`);
   };
 
+  // const handleClickSubcategory = (subcategory) => {
+  //   setSelectedCategory(null);
+  //   setSelectedSubcategory(subcategory);
+  //   // Initialize an empty string for the query parameters
+  //   let queryParams = '';
+  //   // Add selectedPrice query parameter if it exists
+  //   if (selectedPrice !== null) {
+  //     queryParams += `&Price=${selectedPrice}`;
+  //   }
+  //   if (selectedLevel !== null) {
+  //     queryParams += `&Level=${selectedLevel}`;
+  //   }
+  //   if (queryParams) {
+  //     queryParams = '?' + queryParams.substring(1);
+  //   }
+  //   // Concatenate the subcategory and query parameters to the pathname string
+  //   const pathname = `/courses/coursesByC/${subcategory}${queryParams}`;
+
+  //   router.push(pathname);
+  // };
   const handleClickSubcategory = (subcategory) => {
     setSelectedCategory(null);
     setSelectedSubcategory(subcategory);
-    // Initialize an empty string for the query parameters
-    let queryParams = '';
-    // Add selectedPrice query parameter if it exists
-    if (selectedPrice !== null) {
-      queryParams += `&Price=${selectedPrice}`;
-    }
-    if (selectedLevel !== null) {
-      queryParams += `&Level=${selectedLevel}`;
-    }
-    if (queryParams) {
-      queryParams = '?' + queryParams.substring(1);
-    }
-    // Concatenate the subcategory and query parameters to the pathname string
-    const pathname = `/courses/coursesByC/${subcategory}${queryParams}`;
-
-    router.push(pathname);
+    router.push(`/courses/coursesByC/${subcategory}`);
   };
-
 
 
   const toggleAdditionalCategories = () => {
@@ -182,7 +186,7 @@ function Page() {
         <h1 className='text-xl mt-2 font-semibold border-b-[3px] border-violet-500 w-[10%] hover:w-[25%] ease-in duration-500'>Price</h1>
         {
           Price.map((price, i) => (
-            <div key={i} onClick={() => setselectedPrice(price)}>
+            <div key={i} >
               <div className='flex space-x-2 items-center my-4'>
                 {selectedPrice === price ?
                   <FaDotCircle className='text-violet-600' size={18} /> :
@@ -199,7 +203,7 @@ function Page() {
         <h1 className='text-xl font-semibold border-b-[3px] border-violet-500 w-[10%] hover:w-[25%] ease-in duration-500'>Level</h1>
         {
           Level.map((level, index) => (
-            <div key={index} onClick={() => setselectedLevel(level)}>
+            <div key={index} >
               <div className='flex space-x-2 items-center my-4'>
                 {selectedLevel === level ?
                   <FaDotCircle className='text-violet-600' size={18} /> :
