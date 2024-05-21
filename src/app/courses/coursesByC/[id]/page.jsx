@@ -1,7 +1,7 @@
 //show course all details 
 "use client"
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,Suspense } from 'react';
 import { BsStarFill } from "react-icons/bs";
 import { CiWarning } from "react-icons/ci";
 import { MdOutlineWatchLater } from "react-icons/md"
@@ -46,6 +46,7 @@ export default function Courselist({ params}) {
   };
   return (
     <>
+     <Suspense fallback={<div>Loading...</div>}></Suspense>
       {CourseData.length == 0 ? (
         <div className='flex justify-center flex-col items-center lg:my-44 '>
           <CiWarning size={100} />
@@ -97,6 +98,8 @@ export default function Courselist({ params}) {
               </div>
             </div>
           )))}
+          <Suspense/>
     </>
   );
 }
+
