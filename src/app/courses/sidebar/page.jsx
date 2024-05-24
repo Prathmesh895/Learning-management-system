@@ -131,9 +131,8 @@ function Page() {
                       {group.subcategories.map((subcategory, i) => (
                         // <li key={i} className="capitalize flex ml-4 my-4" onClick={() => handleClickSubcategory(subcategory)}>
                         <li key={i} className="capitalize flex ml-4 my-4"
-                        //  onClick={() => handleClickSubcategory(subcategory)}
-                         value={serchParams}
-                         onClick={(e) => setSearchParams(e.target.value) }
+                         onClick={() => handleClickSubcategory(subcategory)}
+                         
                         >
 
                           <div className='flex space-x-2 items-center'>

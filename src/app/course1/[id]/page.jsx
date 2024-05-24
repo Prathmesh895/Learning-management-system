@@ -89,7 +89,7 @@ export default function page({ params }) {
             </div>
             <div className='lg:ml-44 items-center lg:p-0 p-5' >
               <h1 className='text-4xl font-bold my-10'>{course.title}</h1> {/*course title*/}  {/*  */}
-              <p className='text-lg line-clamp-4 overflow-hidden'>{course.description}</p> {/* course description */}
+              <p className='text-lg line-clamp-4 overflow-hidden'>{course.shortdes}</p> {/* course description */}
               {/* sub desc below description  */}
               <div className='flex items-center justify-between mr-5 my-5'>
                 <div>
@@ -209,7 +209,7 @@ export default function page({ params }) {
                 {/* div 5  of card*/}
                 <div className='flex justify-between  border-b pb-5'>{/* certificate is provided or not */}
                   <p className='flex items-center '><PiCertificateLight className='text-yellow-500 mr-1' size={20} />Certificate</p>
-                  <p>Yes</p>
+                  <p>{course.Iscertificate}</p>
                 </div>
                 <div className=''>
                   <button className='border text-violet-700 bg-violet-100 border-violet-500 w-full p-2 rounded-md'>+ Add to card</button>

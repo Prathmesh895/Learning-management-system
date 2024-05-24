@@ -31,7 +31,7 @@ import { toast } from 'react-toastify';
         { title: 'Ebook', href: '/Ebook' },
         { title: 'Find tutor', href: '/Findtutor' },
         { title: 'More', href: '/More' },
-        { title: 'Cart', href: '/Cart' }
+        { title: 'Cart', href: '/cart' }
     ];
 
     return (

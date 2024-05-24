@@ -5,10 +5,10 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req){
     try {
-        const{title,description,category,price,Level,CourseUrl,expiry,langauge,isfree,CreatedBy } = await req.json();
+        const{title,shortdes,description,category,price,Level,CourseUrl,expiry,langauge,isfree,CreatedBy,Iscertificate } = await req.json();
         await connectMongoDB();
         console.log("connection successfull");
-        await Courses.create({title,description,category,price,Level,CourseUrl,expiry,langauge,isfree,CreatedBy});
+        await Courses.create({title,shortdes,description,category,price,Level,CourseUrl,expiry,langauge,isfree,CreatedBy,Iscertificate});
         return NextResponse.json({message:"Course Added Successfull"},{status:201})
 
     } catch (error) {

@@ -3,8 +3,11 @@ import mongoose, { models } from "mongoose";
 const CourseSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: [true, "Please provide a title"],
-       
+        required: [true, "Please provide a title"], 
+    },
+    shortdes:{
+        type: String,
+        required: [true, "Please provide a Creater"],
     },
     description: {
         type: String,
@@ -37,10 +40,17 @@ const CourseSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please provide a langauge"],
     },
+    Iscertificate: {
+        type: String,
+        required: [true, "Please provide a langauge"],
+    },
     CreatedBy: {
         type: String,
         required: [true, "Please provide a Creater"],
     },
+   
+   
+
 
 },
 { timestamps: true } 

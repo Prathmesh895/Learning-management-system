@@ -1,21 +1,23 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useState,useRef } from 'react'
 import NavItem from '@/components/adminDashboard/CourseformNav';
 import { BiCommand } from "react-icons/bi";
 import { FaPenNib } from "react-icons/fa";
 import { useSession } from 'next-auth/react';
 import { MdInfoOutline } from "react-icons/md";
 import Link from 'next/link';
+import { IoArrowBackCircleOutline, IoArrowForwardCircleOutline } from "react-icons/io5";
 import { ImArrowRight, ImArrowLeft } from "react-icons/im";
 import { BiChevronDown, BiRupee } from 'react-icons/bi'
 import { BsCheck2Circle } from "react-icons/bs";
 import { PiVideoLight } from "react-icons/pi";
 import { RiCheckDoubleFill } from "react-icons/ri";
 
-function Addcorse() {
+function AddCourse() {
     const { data: session } = useSession('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [shortdes, setShortDes] = useState('');
     const [category, setCategory] = useState('');
     const [Level, setLevel] = useState('');
     const [price, setPrice] = useState('');
@@ -23,9 +25,9 @@ function Addcorse() {
     const [langauge, setLangauge] = useState('');
     const [expiry, setExpiry] = useState('');
     const [isfree, setIsfree] = useState('');
-    const [message, setMessage] = useState('');
     const [Iscertificate, setIscertificate] = useState('');
-    const [CreatedBy, setCreatedBY] = useState('')
+    const [CreatedBy, setCreatedBY] = useState('');
+    const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const [errors, setErrors] = useState({
         title: '', description: '',
@@ -36,55 +38,16 @@ function Addcorse() {
         CreatedBy: '', general: ''
     })
     const [showcategory, setShowCategory] = useState(false);
-    const [activeItem, setActiveItem] = useState('Basic');
-    const [basic, setBasic] = useState(true);
-    const [info, setInfo] = useState('');
-    const [Addprice, setAddPrice] = useState('');
-    const [media, setMedia] = useState('');
-    const [finish, setFinish] = useState('');
-    const handleBasic = () => {
-        setBasic(!basic);
-        setInfo(null);
-        setAddPrice(null);
-        setMedia(null);
-        setFinish(null);
-    }
-    const handleInfo = () => {
-        setInfo(!info);
-        setBasic(null);
-        setAddPrice(null);
-        setMedia(null);
-        setFinish(null);
-    }
-    const handlePrice = () => {
-        setAddPrice(!Addprice);
-        setInfo(null);
-        setBasic(null);
-        setMedia(null);
-        setFinish(null);
-    }
-    const handleMedia = () => {
-        setMedia(!media);
-        setInfo(null);
-        setBasic(null);
-        setAddPrice(null);
-        setFinish(null);
-    }
-    const handleFinish = () => {
-        setFinish(!finish);
-        setMedia(null);
-        setInfo(null);
-        setBasic(null);
-        setAddPrice(null);
-    }
+    const [step, setStep] = useState(1);
+    const nextStep = () => setStep(step + 1);
+    const prevStep = () => setStep(step - 1)
+
 
     const handleOnshowCategory = () => {
         setShowCategory(!showcategory);
     }
     const handleOnsubmit = async (e) => {
         e.preventDefault();
-        setError('');
-        setMessage('');
         let newError = {};
         if (!title) newError.title = "Please enter title";
         if (!description) newError.description = "Please enter description";
@@ -104,7 +67,7 @@ function Addcorse() {
         }
 
         // const AddedBy = {session?.user?.email}
-        console.log({ title, description, category, Level, price, CourseUrl, langauge, isfree, expiry, CreatedBy })
+        console.log({ title, description, category, Level, price, CourseUrl, langauge, isfree, expiry, CreatedBy, shortdes, Iscertificate })
         try {
             const res = await fetch("/api/add_courses", ({
                 method: 'POST',
@@ -113,9 +76,9 @@ function Addcorse() {
                 },
                 body: JSON.stringify({
                     title,
-                    description,
+                    description, shortdes,
                     category, CreatedBy,
-                    Level, expiry,
+                    Level, expiry, Iscertificate,
                     price, isfree,
                     CourseUrl, langauge
                 }),
@@ -123,11 +86,14 @@ function Addcorse() {
             if (res.ok) {
                 setMessage('Course added successfully!');
                 setTitle('');
+                setShortDes('')
                 setDescription('');
                 setCategory('');
                 setLevel('');
                 setPrice('');
                 setCourseUrl('');
+                setError('');
+                setErrors('')
                 setTimeout(() => {
                     setMessage('');
                 }, 2000);
@@ -140,10 +106,20 @@ function Addcorse() {
             console.log("Unable to add")
         }
     }
+    const steps = ['Basic', 'Info', 'Pricing', 'Media', 'Finish']
 
-    const handleClick = (name) => {
-        setActiveItem(name);
+    const navRef = useRef(null);
+    const scrollLeft = () => {
+        if (navRef.current) {
+            navRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+        }
+    };
+    const scrollRight = () => {
+        if (navRef.current) {
+            navRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+        }
     }
+
     return (
         <>
             <main className=' lg:flex w-full text-gray-500'>
@@ -158,35 +134,39 @@ function Addcorse() {
                             <div className='flex justify-between flex-col lg:flex-row rounded-t m-5'>
                                 <h1 className='p-2 font-semibold'>COURSE ADDING FORM</h1>
                                 <Link href='/admin/course/managecourses'
-                                    className='border rounded-full flex items-center px-4 hover:bg-violet-500 hover:text-white text-violet-500 border-violet-500'>
+                                    className='border rounded-full flex justify-center items-center py-2 px-4 hover:bg-violet-500 hover:text-white text-violet-500 border-violet-500'>
                                     &larr;Back to Course list
                                 </Link>
                             </div>
-                            {/* title bar for form field  */}
-                            <div className='bg-gray-200 text-gray-500 flex space-x-8  mx-6 overflow-scroll lg:overflow-visible'>
-                                <NavItem isActive={activeItem === 'Basic'} onClick={() => { handleClick('Basic'), handleBasic() }} className='w-[20%]'>
-                                    <div className='flex items-center justify-center  space-x-2 p-3 px-16'><FaPenNib size={13} /> <p>Basic</p></div>
-                                </NavItem>
-                                <NavItem isActive={activeItem === 'Info'} onClick={() => { handleClick('Info'), handleInfo() }} className='w-[20%]'>
-                                    <div className='flex items-center justify-center  space-x-2 p-3 px-16'><MdInfoOutline /><p>Info</p></div>
-                                </NavItem>
-                                <NavItem isActive={activeItem === 'Pricing'} onClick={() => { handleClick('Pricing'), handlePrice() }} className='w-[20%]'>
-                                    <div className='flex items-center justify-center  space-x-1 p-3 px-16'><BiRupee /><p>Pricing</p> </div>
-                                </NavItem>
-                                <NavItem isActive={activeItem === 'Media'} onClick={() => { handleClick('Media'), handleMedia() }} className='w-[20%]'>
-                                    <div className='flex items-center justify-center  space-x-2 p-3 px-16'><PiVideoLight /><p>Media</p></div>
-                                </NavItem>
-                                <NavItem isActive={activeItem === 'Finish'} onClick={() => { handleClick('Finish'), handleFinish() }} className='w-[20%]'>
-                                    <div className='flex items-center justify-center  space-x-2 p-3 px-16'><BsCheck2Circle /><p>Finish</p></div>
-                                </NavItem>
+
+                            <div className='flex items-center'>
+                               {step >1 && <IoArrowBackCircleOutline onClick={()=>{scrollLeft(),prevStep()}} className='text-violet-500 bg-white w-10' size={30} />}
+                                {/* title bar for form field  */}
+                                <div ref={navRef} className='bg-gray-200 text-gray-500 flex w-[95%] space-x-5 overflow-scroll lg:overflow-visible'>
+                                    {steps.map((label, index) => (
+                                        <>
+                                            <NavItem key={index} isActive={step === index + 1} onClick={() => setStep(index + 1)} className='w-[20%]'>
+                                                <div className='flex items-center justify-center space-x-2 p-3 px-16'>
+                                                    {index === 0 && <FaPenNib size={13} />}
+                                                    {index === 1 && <MdInfoOutline />}
+                                                    {index === 2 && <BiRupee />}
+                                                    {index === 3 && <PiVideoLight />}
+                                                    {index === 4 && <BsCheck2Circle />}
+                                                    <p>{label}</p>
+                                                </div>
+                                            </NavItem>
+                                        </>
+                                    ))}
+                                </div>
+                              {step < 5 && <IoArrowForwardCircleOutline onClick={()=>{scrollRight(),nextStep()}} className='text-violet-500 bg-white w-10' size={30} />}
+
                             </div>
-                            {/* message or error message  */}
-                            <div className='text-red-500 flex justify-center mt-5 font-semibold'>{errors.general}</div>
                             {/* form input fields */}
                             <form onSubmit={handleOnsubmit} className='flex flex-col  space-y-5 lg:my-10 lg:mx-52  m-5'>
+                                <div className='flex justify-center text-green-500 animate-bounce'>{message}</div>
                                 {/* course Basic section  */}
                                 {
-                                    basic &&
+                                    step == 1 &&
                                     <>
                                         {/* course title  */}
                                         <div className='lg:flex  lg:flex-row  justify-between  items-center'>
@@ -198,6 +178,17 @@ function Addcorse() {
                                                 onChange={(e) => setTitle(e.target.value)}
                                             />
                                         </div>
+                                        {/* short description  */}
+                                        <div className='lg:flex  lg:flex-row  justify-between  '>
+                                            <label htmlFor="courseDesc">Short Description<span className='text-red-500'>*</span></label>
+                                            <textarea rows={2}
+                                                className={`lg:w-[70%] p-2 border w-full ${errors.description && "border-red-500 "}`}
+                                                placeholder={errors.shortdes ? `${errors.shortdes}` : 'Short Description'}
+                                                value={shortdes}
+                                                onChange={(e) => setShortDes(e.target.value)}
+                                                id="courseDesc"></textarea>
+                                        </div>
+
                                         {/* course   Description*/}
                                         <div className='lg:flex  lg:flex-row  justify-between  '>
                                             <label htmlFor="courseDesc">Description<span className='text-red-500'>*</span></label>
@@ -267,7 +258,7 @@ function Addcorse() {
                                 }
 
                                 {
-                                    info &&
+                                    step == 2 &&
                                     <>
                                         {/* input for creator / instructor name  */}
                                         <div className='flex flex-col lg:flex-row justify-between '>
@@ -294,7 +285,7 @@ function Addcorse() {
                                 }
                                 {/*course price section */}
                                 {
-                                    Addprice &&
+                                    step == 3 &&
                                     <>
                                         {/* input box for course price */}
                                         <div className='flex flex-col lg:flex-row justify-between '>
@@ -339,7 +330,7 @@ function Addcorse() {
                                 }
                                 {/* Course media  section */}
                                 {
-                                    media &&
+                                    step == 4 &&
                                     <>
                                         {/* input for Course url  */}
                                         <div className='flex flex-col lg:flex-row justify-between '>
@@ -355,24 +346,24 @@ function Addcorse() {
 
                                 {/* finish code submit      */}
                                 {
-                                    finish &&
-                                    <> 
+                                    step == 5 &&
+                                    <>
+                                        <div className='flex justify-center text-red-500 animate-bounce'> {error}</div>
+                                        {/* message or error message  */}
+                                        <div className='text-red-500 flex justify-center mt-5 font-semibold animate-bounce'>{errors.general}</div>
                                         <div className='flex flex-col space-y-3 justify-center items-center'>
-                                        <RiCheckDoubleFill size={30}/>
+                                            <RiCheckDoubleFill className='text-violet-500' size={40} />
                                             <h1 className='text-xl text-gray-500 font-semibold'>Thank you !</h1>
                                             <h5 className='text-sm'>You are just one click away</h5>
-                                            <input type="submit"
-                                                value="Add Course"
-                                                className='bg-violet-500 text-white rounded lg:w-[20%] w-full'
-                                            />
                                         </div>
                                     </>
                                 }
                                 {/* submit box  */}
 
-                                <div className='flex justify-center space-x-2'>
-                                    <span className='px-4 py-3 bg-cyan-500 hover:bg-cyan-600 rounded'><ImArrowLeft className=' text-white ' /></span>
-                                    <span className='px-4 py-3 bg-cyan-500 hover:bg-cyan-600 rounded'> <ImArrowRight className=' text-white ' /></span>
+                                <div className='flex justify-evenly mt-10 space-x-2'>
+                                    {step > 1 && <button type='button' onClick={prevStep} className='px-4 py-2  hover:bg-cyan-500 bg-white hover:text-white  border border-violet-500  rounded lg:w-[20%] w-full'>Back</button>}
+                                    {step < 5 && <button type='button' onClick={nextStep} className='px-4 py-2  hover:bg-cyan-500 bg-white hover:text-white  border border-violet-500  rounded lg:w-[20%] w-full'>Next</button>}
+                                    {step == 5 && <button type='submit' className='bg-cyan-500 hover:bg-white hover:text-violet-500 border hover:border-violet-500 text-white rounded lg:w-[20%] w-full'>Submit</button>}
                                 </div>
                             </form>
                         </div>
@@ -384,4 +375,4 @@ function Addcorse() {
     )
 }
 
-export default Addcorse
+export default AddCourse
