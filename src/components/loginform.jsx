@@ -78,7 +78,7 @@ function LoginForm() {
     }
 
     return (
-        <main className='md:m-28 '>
+        <main className='md:mx-28 '>
             <section className='md:flex md:m-0 lg:m-8'>
                 <div className='md:w-1/2 h-[100%] w-[90%] md:flex md:justify-center flex justify-center ml-4'>
                     <Image src={LogImg} alt="" className="md:w-2/3" />

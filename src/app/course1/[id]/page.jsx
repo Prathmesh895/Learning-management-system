@@ -17,12 +17,31 @@ import { LuUser2 } from "react-icons/lu";
 import { TbMessage, TbFlag3, TbDiscount2 } from "react-icons/tb";
 import { PiCertificateLight } from "react-icons/pi";
 import User from '/public/usericon.jpg'
+import { useAppDispatch,useAppSelector } from '@/Redux/store/hooks';
+import { add } from '@/Redux/store/feature/cart/cartslice';
 
 
 export default function page({ params }) {
   const id = params.id;
   console.log("id", id)
   // console.log(Id);
+
+  const dispatch = useAppDispatch();
+  const mycart = useAppSelector((state) => state.mycart.courses);
+
+  const isProductInCart = mycart.some((courses) => courses._id === id);
+
+  const handleOnadd = (course) => {
+    if (!isProductInCart) {
+      dispatch(add(course));
+    } else {
+      alert('Course is already in the cart');
+    }
+  };
+
+  // const handleOnadd = (course)=>{
+  //   dispatch(add(course))
+  // }
 
   const [isopen, setIsopen] = useState(true);
   const [isCurriculum, setCurriculum] = useState('');
@@ -212,7 +231,7 @@ export default function page({ params }) {
                   <p>{course.Iscertificate}</p>
                 </div>
                 <div className=''>
-                  <button className='border text-violet-700 bg-violet-100 border-violet-500 w-full p-2 rounded-md'>+ Add to card</button>
+                  <button onClick={()=>handleOnadd(course)} className='border text-violet-700 bg-violet-100 border-violet-500 w-full p-2 rounded-md'>+ Add to card</button>
                   <button className='border mt-2 text-violet-700 bg-violet-100 border-violet-500 w-full p-2 rounded-md'>Enroll now</button>
                 </div>
               </div>

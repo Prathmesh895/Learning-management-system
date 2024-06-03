@@ -8,14 +8,18 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Logo from '/public/cropped-New-logo-File.png';
 import { toast } from 'react-toastify';
+import { useAppSelector } from '@/Redux/store/hooks';
+import { FaShoppingCart } from "react-icons/fa";
 
- function Navbar1() {
+
+function Navbar1() {
     const [isopen, setIsOpen] = useState(false);
     const { data: session, status } = useSession();
     const router = useRouter();
     function handleChange() {
-         setIsOpen(!isopen);
-     }
+        setIsOpen(!isopen);
+    }
+    const CourseLength = useAppSelector((state) => state.mycart.courses) || []
 
     const handleSignOut = async () => {
         await signOut();
@@ -42,23 +46,32 @@ import { toast } from 'react-toastify';
                         <li><Link href='/'><Image src={Logo} alt="company" className='w-28' /></Link></li>
                         {navElements.map((link, index) => (
                             <li key={index}>
-                                <Link href={link.href}>{link.title}</Link>
+                                {link.title === 'Cart' ? (
+                                    <Link href={link.href}>
+                                        <span className="flex items-center">
+                                            <FaShoppingCart className="mr-1" size={20} />
+                                            <sup>{CourseLength.length}</sup>
+                                        </span>
+                                    </Link>
+                                ) : (
+                                    <Link href={link.href}>{link.title}</Link>
+                                )}
                             </li>
                         ))}
                         {status === 'loading' ? (
-                                <li>Loading...</li>
-                            ) : session ? (
-                                <>
+                            <li>Loading...</li>
+                        ) : session ? (
+                            <>
                                 <li><span className="font-bold">{session?.user?.name}</span></li>
                                 <li><span className="font-bold">{session?.user?.email}</span></li>
                                 <li><button onClick={handleSignOut} className="font-bold">Log Out</button></li>
                             </>
-                            ) : (
-                                <>
+                        ) : (
+                            <>
                                 <li><Link href='/Login'>Login</Link></li>
                                 <li><Link href='/register'>Join now</Link></li>
                             </>
-                            )}
+                        )}
                     </ul>
                 </div>
                 <div className='md:hidden flex justify-between'>
@@ -87,7 +100,7 @@ import { toast } from 'react-toastify';
                                 </>
                             )}
                             <li><Link className='flex space-x-1 items-center p-3' href=''>
-                                <img src="https://cdn-icons-png.flaticon.com/128/3514/3514491.png" alt="" className='w-5 h-5 ' /><span className='font-semibold'>Cart</span></Link>
+                                <img src="https://cdn-icons-png.flaticon.com/128/3514/3514491.png" alt="" className='w-5 h-5 ' /><span className='font-semibold'>Cart </span></Link>
                             </li>
                             <li><Link className='flex space-x-1 items-center p-3' href=''>
                                 <img src="https://cdn-icons-png.flaticon.com/128/763/763331.png" alt="" className='w-4 h-4 ' /><span className='font-semibold'>Categories</span></Link>

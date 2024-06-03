@@ -14,10 +14,10 @@ export default function Courselist({ params}) {
   const router = useRouter();
   const [CourseData, setCourseData] = useState([]);
   const Category = params.id;
-  console.log("Category",Category)
+  // console.log("Category",Category)
   const decodedCategory = Category ? decodeURIComponent(Category) : '';
 
-  console.log("Category", decodedCategory);
+  // console.log("Category", decodedCategory);
 
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function Courselist({ params}) {
       const data = await res.json();
       setCourseData(data.DecodedCategory);
       const co = data.DecodedCategory;
-      console.log("CourseData", CourseData);
+      // console.log("CourseData", CourseData);
     } catch (error) {
       console.error('Error fetching courses:', error);
     }

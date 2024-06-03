@@ -85,7 +85,7 @@ export default function RegistrationForm() {
     };
 
     return (
-        <main className='md:flex md:justify-center md:mx-28 mx-4 md:mt-20 pb-8'>
+        <main className='md:flex md:justify-center md:mx-28 lg:mx-4  pb-8'>
             {/* left side image gif  */}
             <div className='md:w-1/2 h-[100%] w-[90%] md:flex md:justify-center flex justify-center ml-4'>
                 <Image src={LogImg} alt="Login Security" className="md:w-2/3" />
