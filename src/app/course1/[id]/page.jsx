@@ -17,15 +17,16 @@ import { LuUser2 } from "react-icons/lu";
 import { TbMessage, TbFlag3, TbDiscount2 } from "react-icons/tb";
 import { PiCertificateLight } from "react-icons/pi";
 import User from '/public/usericon.jpg'
-import { useAppDispatch,useAppSelector } from '@/Redux/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/Redux/store/hooks';
 import { add } from '@/Redux/store/feature/cart/cartslice';
-
+import { useRouter } from 'next/navigation';
 
 export default function page({ params }) {
+  const [mesaage, setMessage] = useState('');
   const id = params.id;
   console.log("id", id)
   // console.log(Id);
-
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const mycart = useAppSelector((state) => state.mycart.courses);
 
@@ -34,14 +35,19 @@ export default function page({ params }) {
   const handleOnadd = (course) => {
     if (!isProductInCart) {
       dispatch(add(course));
+      setMessage("Enrolled Successfully");
+      setInterval(() => {
+        setMessage('');
+        // router.push('/mycourses')
+      }, 4000)
     } else {
-      alert('Course is already in the cart');
+      // alert('You already Enrolled in this course');
+      setMessage("You already Enrolled in this course !");
+      setInterval(() => {
+        setMessage('')
+      }, 4000)
     }
   };
-
-  // const handleOnadd = (course)=>{
-  //   dispatch(add(course))
-  // }
 
   const [isopen, setIsopen] = useState(true);
   const [isCurriculum, setCurriculum] = useState('');
@@ -98,9 +104,12 @@ export default function page({ params }) {
 
   return (
     <>
+    {
+      mesaage &&
+      <h1 className='flex items-center justify-center font-semibold text-xl text-gray-500 left-1/3 top-1/3 absolute bg-white shadow-2xl rounded w-96 min-h-52'>{mesaage}</h1>
+    }
       {CourseData.map((course, index) => (
         <main className='lg:flex' key={index}>
-          
           {/* bg image blue  */}
           <section className=' text-white lg:mb-5 mb-10 lg:w-[60%]'>
             <div className='absolute -z-10'>
@@ -110,7 +119,7 @@ export default function page({ params }) {
               <h1 className='text-4xl font-bold my-10'>{course.title}</h1> {/*course title*/}  {/*  */}
               <p className='text-lg line-clamp-4 overflow-hidden'>{course.shortdes}</p> {/* course description */}
               {/* sub desc below description  */}
-              <div className='flex items-center justify-between mr-5 my-5'>
+              <div className='flex flex-wrap items-center justify-between mr-5 my-5'>
                 <div>
                   <h1 ><span className='text-sm'>Created by</span>  <span>{course.CreatedBy}</span></h1>
                 </div>
@@ -119,7 +128,7 @@ export default function page({ params }) {
                 <div className='flex items-center'><BsStar />(0 Reviews)</div>
               </div>
               {/* sub desc below description  */}
-              <div className='flex items-center space-x-5'>
+              <div className='flex flex-wrap items-center lg:space-x-5'>
                 <h1 className='flex items-center '><FaLanguage className='mr-1' size={20} /> {course.langauge}</h1>
                 <h1 className='flex items-center'><CgCalendarDates />
                   <span className='text-sm px-1'>Last updated</span>  {formatDate(course.updatedAt)}
@@ -231,7 +240,7 @@ export default function page({ params }) {
                   <p>{course.Iscertificate}</p>
                 </div>
                 <div className=''>
-                  <button onClick={()=>handleOnadd(course)} className='border text-violet-700 bg-violet-100 border-violet-500 w-full p-2 rounded-md'>+ Add to card</button>
+                  <button onClick={() => handleOnadd(course)} className='border text-violet-700 bg-violet-100 border-violet-500 w-full p-2 rounded-md'>Enroll now</button>
                   <button className='border mt-2 text-violet-700 bg-violet-100 border-violet-500 w-full p-2 rounded-md'>Enroll now</button>
                 </div>
               </div>
@@ -239,6 +248,7 @@ export default function page({ params }) {
           </section>
         </main>
       ))}
+
     </>
   )
 }

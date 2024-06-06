@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import Logo from '/public/cropped-New-logo-File.png';
+import Logo from '/public/LEARNING-ACADEMY.png';
 import { toast } from 'react-toastify';
 import { useAppSelector } from '@/Redux/store/hooks';
 import { FaShoppingCart } from "react-icons/fa";
@@ -31,11 +31,11 @@ function Navbar1() {
         { title: 'Courses', href: '/courses' },
         { title: 'Courses bundle', href: '/Coursesbundle' },
         { title: 'Bootcamps', href: '/Bootcamps' },
-        { title: 'Team training', href: '/Team training' },
-        { title: 'Ebook', href: '/Ebook' },
+        { title: 'Team training', href: '/Teamtraining' },
+        { title: 'Ebook', href: '/ebook' },
         { title: 'Find tutor', href: '/Findtutor' },
-        { title: 'More', href: '/More' },
-        { title: 'Cart', href: '/cart' }
+        { title: 'Cart', href: '/cart' },
+        { title: 'My Courses', href: '/mycourses' }
     ];
 
     return (
@@ -95,29 +95,29 @@ function Navbar1() {
                                 </>
                             ) : (
                                 <>
-                                    <li className='flex justify-center border bg-purple-600 rounded text-white p-2 mx-5'><Link href='/register'>Sign up</Link></li>
-                                    <li className='flex justify-center border rounded-b border-gray-400 text-gray-600 bg-indigo-50  p-2 m-5'><Link href='/Login'>Login</Link></li>
+                                    <li onClick={handleChange} className='flex justify-center border bg-purple-600 rounded text-white p-2 mx-5'><Link href='/register'>Sign up</Link></li>
+                                    <li onClick={handleChange} className='flex justify-center border rounded-b border-gray-400 text-gray-600 bg-indigo-50  p-2 m-5'><Link href='/Login'>Login</Link></li>
                                 </>
                             )}
-                            <li><Link className='flex space-x-1 items-center p-3' href=''>
-                                <img src="https://cdn-icons-png.flaticon.com/128/3514/3514491.png" alt="" className='w-5 h-5 ' /><span className='font-semibold'>Cart </span></Link>
+                            <li onClick={handleChange}><Link className='flex space-x-1 items-center p-3' href='/mycourses'>
+                                <img src="https://cdn-icons-png.flaticon.com/128/3514/3514491.png" alt="" className='w-5 h-5 ' /><span className='font-semibold'>MY Courses</span></Link>
                             </li>
-                            <li><Link className='flex space-x-1 items-center p-3' href=''>
+                            <li onClick={handleChange}><Link className='flex space-x-1 items-center p-3' href=''>
                                 <img src="https://cdn-icons-png.flaticon.com/128/763/763331.png" alt="" className='w-4 h-4 ' /><span className='font-semibold'>Categories</span></Link>
                             </li>
-                            <li><Link className='flex space-x-1 items-center p-3' href=''>
-                                <img src="https://cdn-icons-png.flaticon.com/128/10525/10525627.png" alt="" className='w-5 h-5 ' /><span className='font-semibold'>Course bundles</span></Link>
+                            <li onClick={handleChange}><Link className='flex space-x-1 items-center p-3' href='/courses'>
+                                <img src="https://cdn-icons-png.flaticon.com/128/10525/10525627.png" alt="" className='w-5 h-5 ' /><span className='font-semibold'>Course</span></Link>
                             </li>
-                            <li><Link className='flex space-x-1 items-center p-3' href=''>
+                            <li onClick={handleChange}><Link className='flex space-x-1 items-center p-3' href='/Bootcamps'>
                                 <img src="https://cdn-icons-png.flaticon.com/128/3514/3514491.png" alt="" className='w-5 h-5 ' /><span className='font-semibold'>Bootcamp</span></Link>
                             </li>
-                            <li><Link className='flex space-x-1 items-center p-3' href=''>
+                            <li onClick={handleChange}><Link className='flex space-x-1 items-center p-3' href='/Teamtraining'>
                                 <img src="https://cdn-icons-png.flaticon.com/128/1204/1204035.png" alt="" className='w-5 h-5 ' /><span className='font-semibold'>Team training</span></Link>
                             </li>
-                            <li><Link className='flex space-x-1 items-center p-3' href=''>
+                            <li onClick={handleChange}><Link className='flex space-x-1 items-center p-3' href='/ebook'>
                                 <img src="https://cdn-icons-png.flaticon.com/128/2915/2915751.png" alt="" className='w-5 h-5 ' /><span className='font-semibold'>Ebook</span></Link>
                             </li>
-                            <li><Link className='flex space-x-1 items-center p-3' href=''>
+                            <li onClick={handleChange}><Link className='flex space-x-1 items-center p-3' href=''>
                                 <img src="https://cdn-icons-png.flaticon.com/128/33/33356.png" alt="" className='w-5 h-5 ' /><span className='font-semibold'>Find a tutor</span></Link>
                             </li>
                         </ul>
