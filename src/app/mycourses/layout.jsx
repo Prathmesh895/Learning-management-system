@@ -17,9 +17,9 @@ export default function layout({ children }) {
             </div>
         </section>
 
-        <div className='lg:flex lg:space-x-10  lg:mt-20 mx-5 my-5 lg:mx-44'>
-            <Sidebar className='lg:w-[20%]' />
-            <div className='lg:w-[70%]'>{children}</div>
+        <div className='lg:flex lg:space-x-7  lg:mt-20 mx-5 my-5 lg:mx-44'>
+            <div><Sidebar className='lg:w-[30%] max-h-screen lg:mr-10' /></div>
+            <div className='lg:w-[70%] min-h-screen'>{children}</div>
         </div>
     </>
 

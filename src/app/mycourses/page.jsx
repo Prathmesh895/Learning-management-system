@@ -25,7 +25,7 @@ export default function page() {
             {
               Course.map((course) => (
                 <>
-                  <div key={course._id} className='flex w-full'>
+                  <div key={course._id} className='flex w-full my-5'>
                     <div className='min-h-44 '>
                       <Image src={PNG} alt='course logo' className='rounded' width={300} height={300} />
                     </div>
