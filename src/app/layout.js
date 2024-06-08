@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
  
   return (
     <html lang="en">
-      <body className={inter.className} style={{backgroundColor:'rgb(241, 247, 249)'}}>
+      <body className={inter.className} style={{backgroundColor:'rgb(250,250,250)'}}>
       <AuthProvider>
             <Navbar1/>
             {children}
