@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import { BsStarFill } from "react-icons/bs";
 import { MdOutlineWatchLater } from "react-icons/md"
 import { FaClosedCaptioning, FaRegRectangleList } from "react-icons/fa6";
+import 'aos/dist/aos.css';
+import AOS from 'aos';
 
 
 function Courses() {
@@ -14,6 +16,13 @@ function Courses() {
     useEffect(() => {
         fetchCourses();
     }, []);
+
+    useEffect(() => {
+        AOS.init({
+          duration: 1000, // Animation duration
+          once: true, // Whether animation should happen only once - while scrolling down
+        });
+      }, []);
 
     const fetchCourses = async () => {
         try {
@@ -36,7 +45,7 @@ function Courses() {
     return (
         <>
             {courseData.map((course, index) => (
-                <div onClick={() => handleClick(course._id)} className='lg:m-5 mx-4 my-5 flex lg:flex-row flex-col bg-white rounded-xl border shadow-lg hover:text-violet-700' key={index}>
+                <div onClick={() => handleClick(course._id)} className='lg:m-5 scroll-smooth mx-4 my-5 flex lg:flex-row flex-col bg-white rounded-xl border shadow-lg hover:text-violet-700' key={index} data-aos="fade-up">
                     <div className='rounded-xl relative lg:w-[30%]'>
                         <div className='absolute lg:right-4 right-0 bottom-3 bg-pink-200 text-pink-600 rounded-l border lg:py-0.5 py-1.5 px-3 lg:h-7 h-9 lg:w-[50%] w-[40%]'>{course.Level}</div>
                         <Image src={PNG} alt='course logo' className=' lg:w-52 lg:h-44 lg:rounded-l-xl rounded-t-xl lg:rounded-tr-none' />

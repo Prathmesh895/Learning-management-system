@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import StudentIMG from '/public/student.png';
 import Link from 'next/link';
@@ -8,6 +8,9 @@ import { FaBookReader, FaCubes, FaRegCalendarCheck, FaBook, FaRegHeart, FaKey,Fa
 import { FaChalkboardUser, FaUsers } from "react-icons/fa6";
 import { BiMessageRoundedDots } from "react-icons/bi";
 import { IoMdSettings } from "react-icons/io";
+import 'aos/dist/aos.css';
+import AOS from 'aos';
+
 
 const SideLinks = [
   { icon: FaBookReader, title: 'My courses', link: '/mycourses' },
@@ -28,10 +31,16 @@ function Page() {
   const handleClick = (title) => {
     setSelectedTitle(title);
   };
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Animation duration
+      once: true, // Whether animation should happen only once - while scrolling down
+    });
+  }, []);
   const { data: session, status } = useSession();
 
   return (
-    <section className='bg-white lg:w-64 lg:pt-10 p-5 flex flex-col shadow-lg border rounded-lg'>
+    <section className='bg-white lg:w-64 lg:pt-10 p-5 flex flex-col shadow-lg border rounded-lg' data-aos="fade-up">
       <div className='flex flex-col items-center my-5'>
         <Image src={StudentIMG} alt='student img' width={90} height={90} className='rounded-full' />
         <span className='text-lg font-semibold text-gray-500'>Student Name {session?.user.fname}</span>
@@ -40,7 +49,9 @@ function Page() {
       <div className='space-y-1 font-semibold text-sm'>
         {SideLinks.map((link, index) => (
           <div key={index} onClick={() => handleClick(link.title)}
-            className={`cursor-pointer flex items-center hover:bg-violet-600 hover:text-white p-3 rounded-lg ${selectedTitle === link.title ? 'bg-violet-600 text-white' : ''}`}>
+            className={`cursor-pointer flex items-center hover:bg-violet-600 hover:text-white p-3 rounded-lg 
+            ${selectedTitle === link.title ? 'bg-violet-600 text-white' : ''}`}
+            >
             <Link href={link.link} className='flex items-center w-full'>
               <link.icon className="mr-3" />
               {link.title}

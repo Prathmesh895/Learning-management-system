@@ -1,5 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
+import 'aos/dist/aos.css';
+import AOS from 'aos';
 import { useAppSelector } from '@/Redux/store/hooks';
 import { BsStarFill } from "react-icons/bs";
 import { CiWarning } from "react-icons/ci";
@@ -23,6 +25,12 @@ export default function Page() {
     const handleClick = (_id) => {
         router.push(`/course1/${_id}`); // Navigate to dynamic route /details/[id]
     };
+    useEffect(() => {
+        AOS.init({
+          duration: 1000, // Animation duration
+          once: true, // Whether animation should happen only once - while scrolling down
+        });
+      }, []);
 
     useEffect(() => {
         const category = searchParams.get('category');
@@ -37,12 +45,10 @@ export default function Page() {
             if (subcategory) {
                 filterCourse = filterCourse.filter(course => course.category === subcategory);
             }
-
             // Apply category filter
             if (category && category !== 'All Categories') {
                 filterCourse = filterCourse.filter(course => course.category === category);
             }
-
             // Apply price filter
             if (price) {
                 if (price === 'Paid') {
@@ -63,15 +69,11 @@ export default function Page() {
 
     console.log(CourseData)
 
-    if (CourseData.length == 0) {
-        <h1> NO Courses</h1>
-    }
-
     return (
         <>
             {
                 CourseData.map((course, index) => (
-                    <div onClick={() => handleClick(course._id)} className=' cursor-pointer lg:m-5 mx-4 my-5 flex lg:flex-row flex-col bg-white rounded-xl border shadow-lg hover:text-violet-700' key={index}>
+                    <div onClick={() => handleClick(course._id)} className=' cursor-pointer lg:m-5 mx-4 my-5 flex lg:flex-row flex-col bg-white rounded-xl border shadow-lg hover:text-violet-700' key={index} data-aos="fade-up">
                         <div className='rounded-xl relative lg:w-[30%]'>
                             {/* <div className='absolute lg:right-4 right-0 bottom-3 bg-pink-200 text-pink-600 rounded-l border lg:py-0.5 py-1.5 px-3 lg:h-7 h-9 lg:w-[50%] w-[40%]'>{course.Level}</div> */}
                             <div className="pointer absolute lg:right-6 right-0 bottom-3 bg-pink-100 text-pink-600 rounded-l border lg:py-2 py-1.5 px-3 lg:h-8 h-9 lg:w-[50%] w-[40%]">

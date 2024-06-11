@@ -137,7 +137,7 @@ function Homepage1() {
         </div>
       </div>
       {/* section fourth grid + h1  */}
-      <section className='md:flex mb-10'>
+      <section className='md:flex mb-10' data-aos="fade-up">
         <div className='md:w-1/3 m-4'>
           <p className='text-pink-500 font-semibold'>UPCOMING</p>
           <h1 className='text-3xl font-bold'>Upcoming courses</h1>
