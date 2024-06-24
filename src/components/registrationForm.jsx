@@ -91,7 +91,7 @@ export default function RegistrationForm() {
                 <Image src={LogImg} alt="Login Security" className="md:w-2/3" />
             </div>
             {/* Signin form  */}
-            <div className='mt-10 bg-white lg:flex lg:justify-center md:w-[40%] '>
+            <div className='mt-10 bg-white lg:flex lg:justify-center md:w-[40%] border shadow'>
                 <div className='m-5'>
                     <h1 className="text-3xl font-bold text-gray-500">Sign up<span className="text-indigo-600">!</span></h1><br />
                     <p>Explore, learn, and grow with us. Enjoy a seamless and enriching educational journey. Let's begin!</p><br /><br />

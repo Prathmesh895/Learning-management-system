@@ -1,6 +1,5 @@
-import Image from 'next/image';
-import Logo from '/public/cropped-New-logo-File.png'
 import Link from 'next/link';
+import Logo from './logo';
 
 function footer() {
   return (
@@ -8,7 +7,7 @@ function footer() {
       <section className='bg-gray-950  text-white p-2 md:px-28 md:flex md:justify-center'>
         <div className='md:w-1/3'>
           <div className='md:w-[40%] w-[40%] my-4'>
-            <Image src={Logo} alt="cmopany logo" />
+            <Logo/>
           </div>
           <h1 className='text-gray-400 text-sm '>Study any topic, anytime. explore thousands of courses for the lowest price ever!</h1>
         </div>

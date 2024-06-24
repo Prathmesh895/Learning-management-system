@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 import Navbar1 from "@/components/Navbar1";
 import { ToastContainer } from "../app/next-tostyft";
 import 'react-toastify/dist/ReactToastify.css';
+import { icons } from "lucide-react";
 
 const inter = Inter({ subsets: ["latin"] });
 

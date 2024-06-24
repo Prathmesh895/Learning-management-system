@@ -125,12 +125,12 @@ function AddCourse() {
             <main className=' lg:flex w-full text-gray-500'>
                 <section className='w-full'>
                     <div className='flex flex-col justify-between '>
-                        <div className='bg-white lg:h-24 rounded flex  lg:items-center text-gray-500'>
+                        <div className='bg-white lg:h-24 rounded flex  lg:items-center text-gray-500 border shadow'>
                             <h1 className='m-5 text-lg font-semibold flex items-center '>
                                 <BiCommand className='mr-2 w-6 h-6' />Add new course
                             </h1>
                         </div>
-                        <div className='bg-white  my-4 rounded  '>
+                        <div className='bg-white  my-4 rounded  border shadow'>
                             <div className='flex justify-between flex-col lg:flex-row rounded-t m-5'>
                                 <h1 className='p-2 font-semibold'>COURSE ADDING FORM</h1>
                                 <Link href='/admin/course/managecourses'

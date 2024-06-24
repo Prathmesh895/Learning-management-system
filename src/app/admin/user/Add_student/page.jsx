@@ -79,16 +79,16 @@ function StudentList() {
     return (
         <>
             <div className=' lg:flex lg:flex-col lg:justify-between mx-2'>
-                <div className='bg-white lg:h-24 rounded flex   items-center text-gray-500 justify-between'>
-                    <h1 className='m-5 text-lg font-semibold flex items-center '>
+                <div className='bg-white lg:h-24 rounded flex  p-2   items-center text-gray-500 justify-between border shadow'>
+                    <h1 className='lg:m-5  text-lg font-semibold flex items-center '>
                         <BiCommand className='mx-4 w-6 h-6' />Students
                     </h1>
-                    <button onClick={() => handleNewStudents()} className="border  lg:mr-10 mr-2  border-violet-500 py-2 px-4 rounded-full  text-violet-500 hover:bg-violet-500 hover:text-white  transition duration-300 ease-in-out">
+                    <button onClick={() => handleNewStudents()} className="border lg:mr-10 mr-2  border-violet-500 py-2 px-4 rounded-full  text-violet-500 hover:bg-violet-500 hover:text-white  transition duration-300 ease-in-out">
                         + Add New Student
                     </button>
                 </div>
                 {/* Student list  */}
-                <div className='bg-white lg:h-96 my-4 rounded  overflow-scroll sm:overflow-visible'>
+                <div className='bg-white lg:h-96 my-4 rounded  overflow-scroll sm:overflow-visible border shadow'>
                 <section>
                 <div className="p-4 bg-white">
                     <table className="w-full mt-4 border-collapse border">
@@ -119,14 +119,14 @@ function StudentList() {
                 </div>
             </section>
             {/* on click on add new student it will show add user form */}
-            <section ref={clcADDuser} className="absolute top-1/4 left-1/4  bg-white lg:mx-0 mx-2 shadow-2xl border border-gray-400 rounded ">
+            <section ref={clcADDuser} className="absolute top-1/4 lg:left-1/4  bg-white lg:mx-0 mx-2 shadow-2xl border border-gray-400 rounded ">
                 {
                     addStudents &&
                     <>
                         <div className="bg-violet-500 h-3"></div>
                         <Add />
-                        <div className="absolute bottom-0 left-5 ">
-                            <button onClick={handleNewStudents} className=" hover:bg-gray-200 font-bold py-2 px-36 border   mb-5">
+                        <div className="absolute lg:bottom-0 bottom-5 left-5 ">
+                            <button onClick={handleNewStudents} className=" hover:bg-gray-200 font-bold py-2 lg:px-36 px-9 border   mb-5">
                                 Cancel
                             </button>
                         </div>

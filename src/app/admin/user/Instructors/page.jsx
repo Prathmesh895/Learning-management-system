@@ -85,7 +85,7 @@ function page() {
   return (
     <>
       <div className=' lg:flex lg:flex-col lg:justify-between mx-2'>
-        <div className='bg-white lg:h-24 rounded flex justify-between   items-center text-gray-500'>
+        <div className='bg-white lg:h-24 rounded flex justify-between items-center text-gray-500 border shadow'>
           <h1 className='m-5 text-lg font-semibold flex items-center '>
             <BiCommand className='mr-2 w-6 h-6' />Instructors
           </h1>
@@ -93,7 +93,7 @@ function page() {
             + Add Instructor
           </button>
         </div>
-        <div className='bg-white lg:h-96 my-4 rounded  '>
+        <div className='bg-white lg:h-96 my-4 rounded  border shadow'>
           {/* Instructor List data fetched  */}
           <div className="p-4 bg-white overflow-scroll sm:overflow-visible">
             <table className="w-full mt-4 border-collapse border">

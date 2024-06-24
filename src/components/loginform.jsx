@@ -5,7 +5,7 @@ import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri';
 import { useState } from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation";
 import { getSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
@@ -38,7 +38,7 @@ function LoginForm() {
             setErrors(prevState => ({ ...prevState, general: 'All fields are necessary' }));
             return;
         }
-    
+
         try {
             const res = await signIn("credentials", {
                 email,
@@ -80,11 +80,15 @@ function LoginForm() {
     return (
         <main className='md:mx-28 '>
             <section className='md:flex md:m-0 lg:m-8'>
-                <div className='md:w-1/2 h-[100%] w-[90%] md:flex md:justify-center flex justify-center ml-4'>
+                <div className='md:w-1/2 h-[100%] w-[90%] md:flex md:justify-center flex flex-col justify-center ml-4'>
                     <Image src={LogImg} alt="" className="md:w-2/3" />
+                    <div className="mt-5">
+                        <h1>Login Password for Instructor</h1>
+                        <h1>Email & Password:user1@gmail.com </h1>
+                    </div>
                 </div>
                 {/* code for right side login form */}
-                <div className='md:w-1/2 md:mt-0 mt-10 bg-white lg:flex lg:justify-center lg:w-[40%]'>
+                <div className='md:w-1/2 md:mt-0 mt-10 bg-white lg:flex lg:justify-center lg:w-[40%] border shadow'>
                     <div className="m-5">
                         <h1 className="text-3xl font-bold text-gray-500">Log in <span className="text-indigo-600">!</span></h1><br />
                         <p>Explore, learn, and grow with us. enjoy a seamless and enriching educational journey. lets begin!</p><br /><br />
@@ -93,7 +97,7 @@ function LoginForm() {
                             <input type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className={`${errors.email && "border-red-500"}`}
+                                className={`border ${errors.email && "border-red-500"}`}
                                 placeholder="Enter your email"
                             />
                             <span className="text-red-600 text-sm">{errors.email}</span><br />

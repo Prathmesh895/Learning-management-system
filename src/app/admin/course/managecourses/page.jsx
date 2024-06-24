@@ -80,7 +80,7 @@ function Addcorse() {
       <main className='lg:flex w-full text-gray-500'>
         <section className='w-full'>
           <div className='flex flex-col justify-between'>
-            <div className='bg-white lg:h-24 mb-4 rounded flex justify-between items-center text-gray-500'>
+            <div className='bg-white lg:h-24 mb-4 rounded flex justify-between items-center text-gray-500 border shadow'>
               <h1 className='m-5 text-lg font-semibold flex items-center'>
                 <BiCommand className='mr-2 w-6 h-6' />Courses
               </h1>
@@ -89,35 +89,35 @@ function Addcorse() {
               </div>
             </div>
             {/* second secction of showing courses datails by category Active free paid peding  */}
-            <section className='bg-white my-4 flex flex-wrap divide-x-2'>
-              <div onClick={() => getCorsebyType("Active courses")} className='lg:w-[20%] w-[50%] flex-wrap flex flex-col items-center justify-center py-6 space-y-3'>
+            <section className='bg-white my-4 flex flex-wrap divide-x-2 border shadow'>
+              <div onClick={() => getCorsebyType("Active courses")} className='lg:w-[20%] w-[50%] flex-wrap flex flex-col items-center justify-center py-6 space-y-3 cursor-pointer'>
                 <GrLink className='transform rotate-90 text-gray-400' size={25} />
                 <p className='font-bold text-xl'>{totalCourses}</p>
                 <h1>Active courses</h1>
               </div>
-              <div onClick={() => getCorsebyType("Upcoming courses")} className='lg:w-[20%] w-[50%] flex flex-col items-center justify-center py-6 space-y-3'>
+              <div onClick={() => getCorsebyType("Upcoming courses")} className='lg:w-[20%] w-[50%] flex flex-col items-center justify-center py-6 space-y-3 cursor-pointer'>
                 <GrUnlink size={25} className='text-gray-500' />
                 <p className='font-bold text-xl'>0</p>
                 <h1>Upcoming courses</h1>
               </div>
-              <div onClick={() => getCorsebyType("Pending courses")} className='lg:w-[20%] w-[33%] flex flex-col items-center justify-center py-6 space-y-3'>
+              <div onClick={() => getCorsebyType("Pending courses")} className='lg:w-[20%] w-[33%] flex flex-col items-center justify-center py-6 space-y-3 cursor-pointer'>
                 <GrUnlink size={25} className='text-gray-500' />
                 <p className='font-bold text-xl'>0</p>
                 <h1>Pending courses</h1>
               </div>
-              <div onClick={() => getCorsebyType("free")} className='lg:w-[20%] w-[33%] flex flex-col items-center justify-center py-6 space-y-3'>
+              <div onClick={() => getCorsebyType("free")} className='lg:w-[20%] w-[33%] flex flex-col items-center justify-center py-6 space-y-3 cursor-pointer'>
                 <FaRegStar size={25} className='text-gray-500' />
                 <p className='font-bold text-xl'>{totalFreeCourses}</p>
                 <h1>Free courses</h1>
               </div>
-              <div onClick={() => getCorsebyType("paid")} className='lg:w-[20%] w-[33%] flex flex-col items-center justify-center py-6 space-y-3'>
+              <div onClick={() => getCorsebyType("paid")} className='lg:w-[20%] w-[33%] flex flex-col items-center justify-center py-6 space-y-3 cursor-pointer'>
                 <BsTags size={25} className='text-gray-500' />
                 <p className='font-bold text-xl'>{totalPaidCourses}</p>
                 <h1>Paid courses</h1>
               </div>
             </section>
             {/* for showing courese  */}
-            <div className='bg-white my-4 rounded overflow-auto lg:overflow-visible'>
+            <div className='bg-white my-4 rounded overflow-auto lg:overflow-visible border shadow'>
               <div className='rounded-t'>
                 <h1 className='text-sm font-semibold p-2'>COURSE LIST</h1>
               </div>
@@ -141,13 +141,13 @@ function Addcorse() {
                     courses.map((course, index) => (
                       <>
                         <tr key={index} className={`${index % 2 === 0 ? "bg-gray-100 border-b" : "border-b"}`}>
-                          <td className="px-4 py-4 flex items-center">
+                          <td className="px-4 py-4 flex items-center cursor-pointer">
                           {selectedCourse === course ? (
                               <FaMinusCircle className='text-red-500 mr-2' onClick={handleOnHide} />
                             ) : (
                               <FaPlusCircle className='text-green-500 mr-2' onClick={() => handleOnShowEditCourse(course)} />
                             )}                            </td>
-                          <td className="px-4 py-4 text-blue-500 font-semibold">{course.title} <br /><span className='text-gray-400 font-normal text-xs'>Instructor:{course.CreatedBy}</span></td>
+                          <td className="px-4 py-4 text-blue-500 font-semibold cursor-pointer">{course.title} <br /><span className='text-gray-400 font-normal text-xs'>Instructor:{course.CreatedBy}</span></td>
                           <td className="px-4 py-4 text-black"><span className='bg-gray-300 rounded text-xs p-0.5'>{course.category}</span></td>
                           <td className="px-4 py-4">Enrollments: 1</td>
                           <td className="px-4 py-4">Active</td>

@@ -10,6 +10,7 @@ import { BiMessageRoundedDots } from "react-icons/bi";
 import { IoMdSettings } from "react-icons/io";
 import 'aos/dist/aos.css';
 import AOS from 'aos';
+import { usePathname } from 'next/navigation';
 
 
 const SideLinks = [
@@ -28,6 +29,7 @@ const SideLinks = [
 
 function Page() {
   const [selectedTitle, setSelectedTitle] = useState("");
+  const pathname = usePathname();
   const handleClick = (title) => {
     setSelectedTitle(title);
   };

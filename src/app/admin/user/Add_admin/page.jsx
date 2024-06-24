@@ -83,7 +83,7 @@ function AdminList() {
       {/* Adding new subadmin */}
 
       <div className=' lg:flex lg:flex-col lg:justify-between mx-2'>
-        <div className='bg-white lg:h-24 rounded flex  justify-between  items-center text-gray-500'>
+        <div className='bg-white lg:h-24 rounded flex  justify-between  items-center text-gray-500 border shadow'>
           <h1 className='m-5 text-lg font-semibold flex items-center '>
             <BiCommand className='mr-2 w-6 h-6' />ADMINS
           </h1>
@@ -93,7 +93,7 @@ function AdminList() {
         </div>
 
         {/* subadmin List  */}
-        <div className="p-4 bg-white my-4 overflow-scroll sm:overflow-visible">
+        <div className="p-4 bg-white my-4 overflow-scroll sm:overflow-visible border shadow min-h-96">
           <table className="w-full mt-4 ">
             <thead>
               <tr className="border">

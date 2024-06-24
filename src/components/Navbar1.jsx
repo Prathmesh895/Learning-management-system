@@ -6,10 +6,10 @@ import { useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import Logo from '/public/LEARNING-ACADEMY.png';
 import { toast } from 'react-toastify';
 import { useAppSelector } from '@/Redux/store/hooks';
 import { FaShoppingCart } from "react-icons/fa";
+import Logo from './logo';
 
 
 function Navbar1() {
@@ -40,10 +40,10 @@ function Navbar1() {
 
     return (
         <main className='border-b border-gray-300'>
-            <nav className='p-5 md:mx-36 font-semibold '>
+            <nav className='p-3 md:mx-36 font-semibold '>
                 <div className=' md:block hidden'>
                     <ul className='flex justify-around items-center '>
-                        <li><Link href='/'><Image src={Logo} alt="company" className='w-28' /></Link></li>
+                        <li><Logo /></li>
                         {navElements.map((link, index) => (
                             <li key={index}>
                                 {link.title === 'Cart' ? (
@@ -75,8 +75,7 @@ function Navbar1() {
                     </ul>
                 </div>
                 <div className='md:hidden flex justify-between'>
-                    <h1><Link href='/'><Image src={Logo} alt="company" className='w-28' /></Link></h1>
-                    <img src="" alt="" />
+                    <h1><Logo /></h1>
                     <button onClick={handleChange}>
                         <AiOutlineMenu size={27} />
                     </button>

@@ -109,7 +109,7 @@ function Admin() {
 
     return (
         <>
-            <div className="bg-white lg:flex lg:flex-col lg:space-y-6 text-gray-500 text-sm hidden min-h-screen  rounded shadow-lg">
+            <div className="bg-white lg:flex lg:flex-col lg:space-y-6 text-gray-500 text-sm hidden min-h-[95%]  rounded border shadow">
                 <div className="flex flex-col lg:h-16 h-14 lg:px-2 justify-center items-center hover:text-blue-500 rounded-t">
                     <p>Administrador</p>
                 </div>
@@ -117,7 +117,7 @@ function Admin() {
                 {items.map((item, index) => (
                     <React.Fragment key={index}>
                         <div
-                            className="hover:text-violet-600 flex items-center px-8"
+                            className="hover:text-violet-600 flex items-center px-8 cursor-pointer"
                             onClick={() => handleItemClick(item.name, item.link)}
                         >
                             {React.createElement(icons[index], { className: 'mr-2' })}
@@ -140,7 +140,7 @@ function Admin() {
                 ))}
             </div>
 
-            {/* Side bar code  */}
+            {/* Side bar code  for small screen*/}
             <div className='lg:hidden block'>
                 <RiMenu2Fill onClick={handleOpen} size={35} className=' text-gray-500 sm:text-white absolute top-20 left-2' />
                 <div className={isopen ? "fixed left-0 top-0 w-[90%] h-screen z-50 bg-white ease-in duration-500" : "fixed left-[-100%] top-0 p-6 bg-slate-500"}>
@@ -153,7 +153,7 @@ function Admin() {
                             <React.Fragment key={index}>
                                 <div
                                     className="hover:text-violet-600 flex items-center px-8"
-                                    onClick={() => handleItemClick(item.name, item.link)}
+                                    onClick={() => {handleItemClick(item.name, item.link),handleOpen()}}
                                 >
                                     {React.createElement(icons[index], { className: 'mr-2' })}
                                     {item.name}
@@ -166,7 +166,7 @@ function Admin() {
                                 {expandedItems.includes(item.name) &&
                                     subItems[item.name].map((subItem, subIndex) => (
                                         <Link href={subItem.link} key={`${index}-${subIndex}`}>
-                                            <div className="hover:text-violet-600 flex items-center px-12">
+                                            <div onClick={handleOpen} className="hover:text-violet-600 flex items-center px-12">
                                                 {subItem.name}
                                             </div>
                                         </Link>
