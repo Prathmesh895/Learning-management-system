@@ -169,8 +169,8 @@ function Homepage1() {
                   {course.image ? (
                     <Image
                       src={`/courseImages/${course.image}`} // Ensure path is correct
-                      width={100}
-                      height={100}
+                      width={500}
+                      height={600}
                       alt={course.title}
                       className='rounded-3xl -z-20  w-[400px] h-[450px] '
                     />
