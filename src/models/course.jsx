@@ -48,7 +48,14 @@ const CourseSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please provide a Creater"],
     },
-   
+    creatAs: {
+        type: String,
+        required: [true, "Please provide a Creater"],
+    },
+    image: {
+        type: String,
+        required: [true, "Please provide a Creater"],
+    },
    
 
 

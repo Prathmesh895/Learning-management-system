@@ -38,7 +38,7 @@ export default function page({ params }) {
       setMessage("Enrolled Successfully");
       setInterval(() => {
         setMessage('');
-        // router.push('/mycourses')
+        router.push('/mycourses')
       }, 4000)
     } else {
       // alert('You already Enrolled in this course');
@@ -104,10 +104,10 @@ export default function page({ params }) {
 
   return (
     <>
-    {
-      mesaage &&
-      <h1 className='flex items-center justify-center font-semibold text-xl text-gray-500 left-1/3 top-1/3 absolute bg-white shadow-2xl rounded w-96 min-h-52'>{mesaage}</h1>
-    }
+      {
+        mesaage &&
+        <h1 className='flex items-center justify-center font-semibold text-xl text-gray-500 left-1/3 top-1/3 absolute bg-white shadow-2xl rounded w-96 min-h-52'>{mesaage}</h1>
+      }
       {CourseData.map((course, index) => (
         <main className='lg:flex' key={index}>
           {/* bg image blue  */}
@@ -240,8 +240,7 @@ export default function page({ params }) {
                   <p>{course.Iscertificate}</p>
                 </div>
                 <div className=''>
-                  <button onClick={() => handleOnadd(course)} className='border text-violet-700 bg-violet-100 border-violet-500 w-full p-2 rounded-md'>Enroll now</button>
-                  <button className='border mt-2 text-violet-700 bg-violet-100 border-violet-500 w-full p-2 rounded-md'>Enroll now</button>
+                  <button onClick={() => handleOnadd(course)} className='border text-violet-700 bg-violet-100 border-violet-500 w-full p-2 rounded-md hover:bg-violet-500 hover:text-white'>Enroll now</button>
                 </div>
               </div>
             </div>

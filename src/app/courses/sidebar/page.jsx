@@ -68,7 +68,7 @@ function Page() {
     const newQueryParams = new URLSearchParams(searchParams);
     newQueryParams.delete("subcategory"); // Remove existing category
     newQueryParams.set("category", category); // Set new category
-    router.push(`/courses/CourseSort/?${newQueryParams.toString()}`);
+    router.push(`/courses/?${newQueryParams.toString()}`);
 
   };
 
@@ -78,19 +78,20 @@ function Page() {
     const newQueryParams = new URLSearchParams(searchParams);
     newQueryParams.set("subcategory", subcategory);
     newQueryParams.delete("category")
-    router.push(`/courses/CourseSort/?${newQueryParams.toString()}`);
+    router.push(`/courses/?${newQueryParams.toString()}`);
+
   };
   const handleOnPrice = (price) => {
     setselectedPrice(price);
     const newQueryParams = new URLSearchParams(searchParams);
     newQueryParams.set('price',price);
-    router.push(`/courses/CourseSort/?${newQueryParams.toString()}`);
+    router.push(`/courses/?${newQueryParams.toString()}`);
   }
   const handleOnLevel = (level) => {
     setselectedLevel(level);
     const newQueryParams = new URLSearchParams(searchParams);
     newQueryParams.set('level',level);
-    router.push(`/courses/CourseSort/?${newQueryParams.toString()}`);
+    router.push(`/courses/?${newQueryParams.toString()}`);
   }
 
   const toggleAdditionalCategories = () => {

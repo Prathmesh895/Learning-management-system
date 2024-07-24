@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import 'aos/dist/aos.css';
 import AOS from 'aos';
 import { useEffect } from 'react';
@@ -9,11 +9,6 @@ import Img2 from '/public/h-1-ban-st.png'
 import Img3 from '/public/h-1-bnar-c-1.png'
 import Img4 from '/public/h-1-bnar-c-2.png'
 import Img5 from '/public/h-1-bnar-c-3.png'
-import Img_s1 from '/public/course_thumbnail_default-new_421701072860.jpg'
-import Img_s2 from '/public/course_thumbnail_default-new_411701072634.jpg'
-import Img_s3 from '/public/course_thumbnail_default-new_401701152520.jpg'
-import Img_s4 from '/public/img_s4.jpg'
-import Img_s5 from '/public/img_s5.jpg'
 import Img_s6 from '/public/img_s6.jpg'
 import { FaSearch, FaWordpressSimple, FaRegLightbulb, FaMobileAlt } from 'react-icons/fa'
 import { AiOutlineHtml5 } from "react-icons/ai";
@@ -49,12 +44,32 @@ const frequentlyAskQue = [
 ]
 
 function Homepage1() {
+  const [coursesData, setCoursesData] = useState([]);
   useEffect(() => {
     AOS.init({
       duration: 1000, // Animation duration
       once: true, // Whether animation should happen only once - while scrolling down
     });
   }, []);
+
+  useEffect(() => {
+    handleonfetch();
+  }, []);
+
+  const handleonfetch = async () => {
+    try {
+      const res = await fetch("/api/add_courses");
+      if (res.ok) {
+        const data = await res.json();
+        console.log(data);
+        setCoursesData(data.courses);
+        console.log("Fetched successfully")
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+  console.log("Courses", coursesData);
   return (
     <main className='md:mx-44'>
       {/* section one  */}
@@ -62,7 +77,7 @@ function Homepage1() {
         {/* code for image on flex 2 section 1 a */}
         <section className='md:w-1/2'>
           <img src="https://demo.creativeitem.com/academy/uploads/system/home-1.png"
-            width={500} height={400} alt="" />
+            width={600} height={600} alt="" />
         </section>
         {/* code for include search tab flex 2 section 1 b */}
         <section className='leading-3 md:w-1/2 md:text-[350%] text-4xl   md:mr-0 mr-10 md:ml-0 ml-4 md:mx-20'>
@@ -137,64 +152,44 @@ function Homepage1() {
         </div>
       </div>
       {/* section fourth grid + h1  */}
-      <section className='md:flex mb-10' data-aos="fade-up">
-        <div className='md:w-1/3 m-4'>
-          <p className='text-pink-500 font-semibold'>UPCOMING</p>
-          <h1 className='text-3xl font-bold'>Upcoming courses</h1>
-          <p className='text-gray-500 text-sm font-semibold'>Discover a world of learning opportunities through our upcoming courses,
-            where industry experts and thought leaders will guide you in acquiring new expertise,
-            expanding your horizons, and reaching your full potential.
+      <section className=' mb-10' data-aos="fade-up">
+        <div className='lg:flex justify-between   m-4 lg:mt-20'>
+          <h1 className='text-4xl font-bold lg:w-[40%]'>Explore our upcoming courses</h1>
+          <p className='text-gray-600 lg:w-[50%] leading-loose px-5 border-l '>
+            Discover a world of learning opportunities through our upcoming courses, where industry
+            experts and thought leaders will guide you in acquiring new expertise, expanding your
+            horizons, and reaching your full potential.
           </p>
         </div>
-        <div className='md:w-2/3 md:grid md:grid-cols-3 gap-4 '>
-          <div className='md:h-80   md:my-0 my-4 p-4 rounded-lg bg-white border shadow md:mx-1 mx-6'>
-            <Image src={Img_s1} alt="" className='rounded-lg' />
-            <h1 className='font-bold mt-5 mb-2'>Color Theory for designers</h1>
-            <p className='text-gray-400'>
-              It is a long established fact that a reader
-              will be distracted by the rea...
-            </p>
-          </div>
-          <div className='md:h-80   md:my-0 my-4 p-4 rounded-lg bg-white border shadow md:mx-1 mx-6'>
-            <Image src={Img_s2} alt="" className='rounded-lg' />
-            <h1 className='font-bold mt-5 mb-2'>Blog Masterclass: How to Build A successful</h1>
-            <p className='text-gray-400'>
-              Let go of self-doubt, embrace optimism,
-              and unleash the limitless pote...
-            </p>
-          </div>
-          <div className='md:h-80   md:my-0 my-4 p-4 rounded-lg bg-white border shadow md:mx-1 mx-6'>
-            <Image src={Img_s3} alt="" className='rounded-lg' />
-            <h1 className='font-bold mt-5 mb-2'>Customer Service English Essentials</h1>
-            <p className='text-gray-400'>
-              Contrary to popular belief, Lorem Ipsum is not simply random text.
-              It has roots in
-            </p>
-          </div>
-          <div className='md:h-80   md:my-0 my-4 p-4 rounded-lg bg-white border shadow md:mx-1 mx-6'>
-            <Image src={Img_s4} alt="" className='rounded-lg' />
-            <h1 className='font-bold mt-5 mb-2'>The Complete Digital Marketing Guide</h1>
-            <p className='text-gray-400'>
-              Contrary to popular belief, Lorem Ipsum is not simply random text.
-              It has roots...
-            </p>
-          </div>
-          <div className='md:h-80   md:my-0 my-4 p-4 rounded-lg bg-white border shadow md:mx-1 mx-6'>
-            <Image src={Img_s5} alt="" className='rounded-lg' />
-            <h1 className='font-bold mt-5 mb-2'>Color Theory for designers</h1>
-            <p className='text-gray-400'>
-              It is a long established fact that a reader
-              will be distracted by the rea...
-            </p>
-          </div>
-          <div className='md:h-80  md:my-0 my-4  p-4 rounded-lg bg-white border shadow md:mx-1 mx-6'>
-            <Image src={Img_s6} alt="" className='rounded-lg' />
-            <h1 className='font-bold mt-5 mb-2'>Color Theory for designers</h1>
-            <p className='text-gray-400'>
-              It is a long established fact that a reader
-              will be distracted by the rea...
-            </p>
-          </div>
+        <div className='lg:grid lg:grid-cols-3 gap-4 '>
+          {
+            coursesData.map((course, index) => (
+              course.creatAs === "Upcoming course" && (
+                <div key={index} className='rounded-lg relative'>
+                  {course.image ? (
+                    <Image
+                      src={`/courseImages/${course.image}`} // Ensure path is correct
+                      width={100}
+                      height={100}
+                      alt={course.title}
+                      className='rounded-3xl -z-20  w-[400px] h-[450px] '
+                    />
+                  ) : (
+                    <div className='h-[80%] w-[95%] bg-gray-200 rounded-lg flex items-center justify-center'>
+                      <span className='text-gray-500'>No Image Available</span>
+                    </div>
+                  )}
+                  <h1 className='font-bold absolute top-[80%] text-center bg-white w-[90%] h-16 py-2 p-5 mx-1 ml-4 rounded-3xl '>
+                    <p className='truncate'>{course.title}</p>
+                  </h1>
+                  <p className='absolute top-[4%] text-center bg-white text-xs  h-8 rounded mx-5 p-2 text-blue-600'>
+                    {course.category}
+                  </p>
+                </div>
+              )
+            ))
+          }
+
         </div>
       </section>
 
@@ -249,13 +244,13 @@ function Homepage1() {
         <p className='text-gray-600 text-center mx-5'>Have something to know? Check here if you have any questions about us.</p>
       </div>
       <Accordion type="single" collapsible className='lg:m-10 m-5' data-aos="fade-up">
-          {frequentlyAskQue.map((faq, index) => (
-            <AccordionItem key={index} value={`item-${index}`}>
-              <AccordionTrigger className='text-xl font-bold'>{faq.Que}</AccordionTrigger>
-              <AccordionContent className='text-lg text-gray-500'>{faq.Ans}</AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        {frequentlyAskQue.map((faq, index) => (
+          <AccordionItem key={index} value={`item-${index}`}>
+            <AccordionTrigger className='text-xl font-bold'>{faq.Que}</AccordionTrigger>
+            <AccordionContent className='text-lg text-gray-500'>{faq.Ans}</AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
 
     </main>
   )

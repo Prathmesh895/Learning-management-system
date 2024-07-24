@@ -1,5 +1,6 @@
 "use client"
-import React, { useState,useRef } from 'react'
+import React, { useState, useRef } from 'react'
+import Select from 'react-select'
 import NavItem from '@/components/adminDashboard/CourseformNav';
 import { BiCommand } from "react-icons/bi";
 import { FaPenNib } from "react-icons/fa";
@@ -27,6 +28,8 @@ function AddCourse() {
     const [isfree, setIsfree] = useState('');
     const [Iscertificate, setIscertificate] = useState('');
     const [CreatedBy, setCreatedBY] = useState('');
+    const [creatAs, setCreatAd] = useState('');
+    const [image, setImage] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const [errors, setErrors] = useState({
@@ -35,17 +38,14 @@ function AddCourse() {
         price: '', CourseUrl: '',
         langauge: '', expiry: '',
         isfree: '', Iscertificate: '',
-        CreatedBy: '', general: ''
+        CreatedBy: '', creatAs: "", image: " ", general: ''
     })
-    const [showcategory, setShowCategory] = useState(false);
+
     const [step, setStep] = useState(1);
     const nextStep = () => setStep(step + 1);
     const prevStep = () => setStep(step - 1)
 
 
-    const handleOnshowCategory = () => {
-        setShowCategory(!showcategory);
-    }
     const handleOnsubmit = async (e) => {
         e.preventDefault();
         let newError = {};
@@ -60,6 +60,7 @@ function AddCourse() {
         if (!isfree) newError.isfree = "Please enter isfree";
         if (!Iscertificate) newError.Iscertificate = "Please enter Iscertificate";
         if (!CreatedBy) newError.CreatedBy = "Please enter CreatedBy";
+        if (!creatAs) newError.creatAs = "Please enter creatAs";
 
         if (Object.keys(newError).length > 0) {
             setErrors(newError);
@@ -67,22 +68,27 @@ function AddCourse() {
         }
 
         // const AddedBy = {session?.user?.email}
-        console.log({ title, description, category, Level, price, CourseUrl, langauge, isfree, expiry, CreatedBy, shortdes, Iscertificate })
+        console.log({ title, description, category, Level, price, CourseUrl, langauge, isfree, expiry, CreatedBy, shortdes, Iscertificate, creatAs, image });
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('shortdes', shortdes);
+        formData.append('category', category);
+        formData.append('CreatedBy', CreatedBy);
+        formData.append('Level', Level);
+        formData.append('expiry', expiry);
+        formData.append('Iscertificate', Iscertificate);
+        formData.append('price', price);
+        formData.append('isfree', isfree);
+        formData.append('CourseUrl', CourseUrl);
+        formData.append('langauge', langauge);
+        formData.append('creatAs', creatAs);
+        formData.append('image', image);
         try {
-            const res = await fetch("/api/add_courses", ({
+            const res = await fetch("/api/add_courses", {
                 method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    title,
-                    description, shortdes,
-                    category, CreatedBy,
-                    Level, expiry, Iscertificate,
-                    price, isfree,
-                    CourseUrl, langauge
-                }),
-            }));
+                body: formData
+            });
             if (res.ok) {
                 setMessage('Course added successfully!');
                 setTitle('');
@@ -93,7 +99,9 @@ function AddCourse() {
                 setPrice('');
                 setCourseUrl('');
                 setError('');
-                setErrors('')
+                setErrors('');
+                setCreatAd('');
+                setImage(null);
                 setTimeout(() => {
                     setMessage('');
                 }, 2000);
@@ -120,6 +128,19 @@ function AddCourse() {
         }
     }
 
+    // level  /options for select 
+    const levels = [
+        { value: 'Beginner', label: 'Beginner' },
+        { value: 'Indermediate', label: 'Indermediate' },
+        { value: 'Advance', label: 'Advance' }
+    ];
+    // create as / options for select 
+    const courseStatus = [
+        { value: "Active course", label: "Active course " },
+        { value: "Private course ", label: "Private course" },
+        { value: "Upcoming course", label: "Upcoming course " },
+    ]
+
     return (
         <>
             <main className=' lg:flex w-full text-gray-500'>
@@ -140,7 +161,7 @@ function AddCourse() {
                             </div>
 
                             <div className='flex items-center'>
-                               {step >1 && <IoArrowBackCircleOutline onClick={()=>{scrollLeft(),prevStep()}} className='text-violet-500 bg-white w-10' size={30} />}
+                                {step > 1 && <IoArrowBackCircleOutline onClick={() => { scrollLeft(), prevStep() }} className='text-violet-500 bg-white w-10' size={30} />}
                                 {/* title bar for form field  */}
                                 <div ref={navRef} className='bg-gray-200 text-gray-500 flex w-[95%] space-x-5 overflow-scroll lg:overflow-visible'>
                                     {steps.map((label, index) => (
@@ -158,7 +179,7 @@ function AddCourse() {
                                         </>
                                     ))}
                                 </div>
-                              {step < 5 && <IoArrowForwardCircleOutline onClick={()=>{scrollRight(),nextStep()}} className='text-violet-500 bg-white w-10' size={30} />}
+                                {step < 5 && <IoArrowForwardCircleOutline onClick={() => { scrollRight(), nextStep() }} className='text-violet-500 bg-white w-10' size={30} />}
 
                             </div>
                             {/* form input fields */}
@@ -203,27 +224,12 @@ function AddCourse() {
                                         <div className='flex flex-col lg:flex-row justify-between '>
                                             <label htmlFor="">Level <span className='text-red-500'>*</span> </label>
                                             <div className='font-medium lg:w-[70%]'>
-                                                <div onClick={handleOnshowCategory} className={`w-full p-2 flex justify-between items-center border ${errors.Level && "border-red-500"}`}>
-                                                    {Level ? Level : "Select Level"}
-                                                    <BiChevronDown size={20} />
-                                                </div>
-
-                                                {showcategory &&
-                                                    <ul className='bg-white border absolute w-[33.3%]'>
-                                                        <li onClick={() => setLevel("Beginner")}
-                                                            className='p-2 cursor-pointer hover:bg-blue-500 hover:text-white'>
-                                                            Beginner
-                                                        </li>
-                                                        <li onClick={() => setLevel("Indermediate")}
-                                                            className='p-2 cursor-pointer hover:bg-blue-500 hover:text-white'>
-                                                            Indermediate
-                                                        </li>
-                                                        <li onClick={() => setLevel("Advance")}
-                                                            className='p-2 cursor-pointer hover:bg-blue-500 hover:text-white'>
-                                                            Advance
-                                                        </li>
-                                                    </ul>
-                                                }
+                                                <Select options={levels}
+                                                    id="level"
+                                                    value={levels.find(option => option.value === Level)}
+                                                    onChange={(selectedOption) => setLevel(selectedOption.value)}
+                                                    placeholder={errors.Level ? `${errors.Level}` : 'Select Level'}
+                                                    className={` w-full ${errors.Level && "border-red-500"}`} />
                                             </div>
                                         </div>
                                         {/* input box for langauge */}
@@ -280,6 +286,18 @@ function AddCourse() {
                                                 className='mr-2'
                                             />
                                             <label htmlFor="Iscertificate">Certificate</label>
+                                        </div>
+                                        {/* create as status  */}
+                                        <div className='flex justify-between w-full'>
+                                            <label htmlFor="">Create as a</label>
+                                            <div className='font-medium lg:w-[70%]'>
+                                                <Select options={courseStatus}
+                                                    id="level"
+                                                    value={courseStatus.find(option => option.value === Level)}
+                                                    onChange={(selectedOption) => setCreatAd(selectedOption.value)}
+                                                    placeholder={errors.creatAs ? `${errors.creatAs}` : 'Select'}
+                                                    className={` w-full ${errors.creatAs && "border-red-500"}`} />
+                                            </div>
                                         </div>
                                     </>
                                 }
@@ -339,6 +357,14 @@ function AddCourse() {
                                                 onChange={(e) => setCourseUrl(e.target.value)}
                                                 className={`lg:w-[70%] p-2 border  w-full ${errors.CourseUrl && "border-red-500 "}`}
                                                 placeholder='www.google.com'
+                                            />
+                                        </div>
+                                        {/*  input for course image */}
+                                        <div className='flex flex-col lg:flex-row justify-between '>
+                                            <label htmlFor="courseVideo">Add a Content Image <span className='text-red-500'>*</span></label>
+                                            <input type="file"
+                                                onChange={(e) => { setImage(e.target.files[0]); }}
+                                                className={`lg:w-[70%] p-2 border  w-full ${errors.image && "border-red-500 "}`}
                                             />
                                         </div>
                                     </>

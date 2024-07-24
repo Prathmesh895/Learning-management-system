@@ -164,12 +164,12 @@ export default function RegistrationForm() {
                     </form><br />
 
                     <h1>Already have an account? <span className="text-blue-600">&nbsp;&nbsp;<Link href='/Login'>Login</Link></span></h1><br />
-                    <div className="flex items-center">
+                    {/* <div className="flex items-center">
                         <hr className="flex-grow border-gray-400 h-0" />
                         <span className="px-4 text-gray-700">Or</span>
                         <hr className="flex-grow border-gray-400 h-0" />
                     </div><br />
-                    <div className="flex justify-center bg-violet-600 text-white font-bold p-2">Continue with Google</div>
+                    <div className="flex justify-center bg-violet-600 text-white font-bold p-2">Continue with Google</div> */}
                 </div>
             </div>
         </main>

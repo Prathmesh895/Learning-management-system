@@ -34,7 +34,6 @@ function Navbar1() {
         { title: 'Team training', href: '/Teamtraining' },
         { title: 'Ebook', href: '/ebook' },
         { title: 'Find tutor', href: '/Findtutor' },
-        { title: 'Cart', href: '/cart' },
         { title: 'My Courses', href: '/mycourses' }
     ];
 
@@ -46,16 +45,7 @@ function Navbar1() {
                         <li><Logo /></li>
                         {navElements.map((link, index) => (
                             <li key={index}>
-                                {link.title === 'Cart' ? (
-                                    <Link href={link.href}>
-                                        <span className="flex items-center">
-                                            <FaShoppingCart className="mr-1" size={20} />
-                                            <sup>{CourseLength.length}</sup>
-                                        </span>
-                                    </Link>
-                                ) : (
-                                    <Link href={link.href}>{link.title}</Link>
-                                )}
+                                <Link href={link.href}>{link.title}</Link>
                             </li>
                         ))}
                         {status === 'loading' ? (
