@@ -19,6 +19,7 @@ import { BiMoviePlay } from "react-icons/bi";
 import Shape2 from '/public/h-1-bn-shape-2.png'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/components/ui/accordion"
+import { useRouter } from 'next/navigation';
 
 
 const topcategories = [
@@ -45,6 +46,8 @@ const frequentlyAskQue = [
 
 function Homepage1() {
   const [coursesData, setCoursesData] = useState([]);
+
+  const router = useRouter();
   useEffect(() => {
     AOS.init({
       duration: 1000, // Animation duration
@@ -52,6 +55,7 @@ function Homepage1() {
     });
   }, []);
 
+  //fetch courses 
   useEffect(() => {
     handleonfetch();
   }, []);
@@ -69,7 +73,17 @@ function Homepage1() {
       console.log(error.message);
     }
   }
-  console.log("Courses", coursesData);
+  // console.log("Courses", coursesData);
+  //onclick show course details on page course1
+  const handleOnRedirectCoursePage = (_id) => {
+    router.push(`/course1/${_id}`);
+  }
+
+  //onclick rediresct on course page
+  const handleOnRedirectCourse = () => {
+    router.push(`/courses`);
+  }
+
   return (
     <main className='md:mx-44'>
       {/* section one  */}
@@ -161,11 +175,11 @@ function Homepage1() {
             horizons, and reaching your full potential.
           </p>
         </div>
-        <div className='lg:grid lg:grid-cols-3 gap-4 '>
+        <div className='lg:grid lg:grid-cols-3 gap-4'>
           {
             coursesData.map((course, index) => (
               course.creatAs === "Upcoming course" && (
-                <div key={index} className='rounded-lg relative'>
+                <div key={index} onClick={() => handleOnRedirectCoursePage(course._id)} className='rounded-lg relative cursor-pointer m-5'>
                   {course.image ? (
                     <Image
                       src={`/courseImages/${course.image}`} // Ensure path is correct
@@ -181,6 +195,7 @@ function Homepage1() {
                   )}
                   <h1 className='font-bold absolute top-[80%] text-center bg-white w-[90%] h-16 py-2 p-5 mx-1 ml-4 rounded-3xl '>
                     <p className='truncate'>{course.title}</p>
+                    <p className='text-sm font-normal'>Comming soon</p>
                   </h1>
                   <p className='absolute top-[4%] text-center bg-white text-xs  h-8 rounded mx-5 p-2 text-blue-600'>
                     {course.category}
@@ -203,7 +218,7 @@ function Homepage1() {
       <div className='lg:grid grid-cols-3 gap-5 my-5 lg:mx-0 mx-5' data-aos="fade-up">
         {
           topcategories.map(category => (
-            <div key={category.id} className='bg-violet-50 shadow-lg cursor-pointer rounded flex items-center space-x-5 px-5 py-4 lg:my-0 my-5 border'>
+            <div key={category.id} onClick={handleOnRedirectCourse} className='bg-violet-50 shadow-lg cursor-pointer rounded flex items-center space-x-5 px-5 py-4 lg:my-0 my-5 border'>
               <span className={`${category.color} ${category.text_color} p-3 rounded-full`}>{category.icon}</span>
               <div>
                 <h1 className='text-gray-600 font-semibold'>{category.name}</h1>
@@ -220,14 +235,12 @@ function Homepage1() {
         <p className='text-gray-600 text-center'>These are the most latest courses among listen courses learners worldwide</p>
       </div>
       <Carousel className='lg:m-0 m-12'>
-        <CarouselContent className='lg:p-6'>
-          {topcategories.map(category => (
-            <CarouselItem key={category.id} className="md:basis-1/2 lg:basis-1/3">
-              <div className='bg-violet-50 shadow-lg cursor-pointer rounded flex flex-col items-center space-x-5 px-5 py-4 lg:my-0 my-5 border'>
-                <span className={`${category.color} ${category.text_color} p-3 rounded-full`}>{category.icon}</span>
+        <CarouselContent className='lg:p-6 '>
+          {coursesData.map((course, index) => (
+            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3" onClick={() => handleOnRedirectCoursePage(course._id)}>
+              <div className='bg-violet-50 shadow-lg cursor-pointer rounded flex flex-col items-center space-x-5 px-5 py-4 lg:my-0 my-5 border h-28'>
+                <span className={`p-3 rounded-full text-gray-600 font-semibold line-clamp-4`}>{course.title}</span>
                 <div>
-                  <h1 className='text-gray-600 font-semibold'>{category.name}</h1>
-                  <p>{category.noCourses} Courses</p>
                 </div>
               </div>
             </CarouselItem>
